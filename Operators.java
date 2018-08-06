@@ -14,6 +14,7 @@ public class Operators {
         // increase of 12%
         capital += capital * 0.12;
         System.out.println("Increased Capital:\t$" + capital);
+        System.out.format("\n\nCapital: %,d", 3000000);
 
         int number1 = 5, number2 = 6;
         System.out.println("\n\n" + number1 + " / " + number2 + "\t\t\t\t= " + number1 / number2);
