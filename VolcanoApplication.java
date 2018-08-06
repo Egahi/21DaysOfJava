@@ -12,6 +12,16 @@ class VolcanoApplication {
         System.out.println("Checking temperature.");
         dante.checkTemperature();
         dante.showAttributes();
+
+        VolcanoRobot vr = new VolcanoRobot();
+        vr.showAttributes();
+
+        VolcanoRobot.date = "tommorrow";
+        System.out.println("vr attributes...");
+        vr.showAttributes();
+
+        System.out.println("dante attributes...");
+        dante.showAttributes();                
     }
 }
 
