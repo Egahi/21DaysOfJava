@@ -1,4 +1,5 @@
 class VolcanoRobot {
+    static String date = "today";
     String status;
     int speed;
     float temperature;
