@@ -9,7 +9,7 @@ class DateList {
         
         // print out every date in the year
         for (int i = 0; i < 12; i++) {
-            for (int j = 0, days = DayCounter.countDays(i, year); j < days; j++) {
+            for (int j = 0, days = DayCounter.countDays((i + 1), year); j < days; j++) {
                 System.out.println((j + 1) + "/" + (i + 1) + "/" + year);
             }
         }
