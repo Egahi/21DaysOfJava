@@ -1,4 +1,4 @@
-class DayList {
+class DateList {
     public static void main(String[] args) {
         int month = 1, year = 2000;
 
