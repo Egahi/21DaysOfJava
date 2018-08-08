@@ -1,4 +1,4 @@
-import java.util.awt;
+import java.awt.Point;
 
 class FourDPoint extends Point {
     public static void main(String[] arguments) {
