@@ -1,8 +1,32 @@
 class VolcanoRobot {
-    static String date = "today";
+    static String date;
     String status;
     int speed;
     float temperature;
+
+    /**
+     * initialise variables with default value
+     */
+    VolcanoRobot() {
+        date = "Today";
+        status = "Exploring";
+        speed = 10;
+        temperature = 100;
+    }
+
+    /**
+     * Initialise variables with inputed arguments
+     * @param date is the current date
+     * @param status is the status of the robot
+     * @param speed is the current speed
+     * @param temperature is the current temperature
+     */
+    VolcanoRobot(String date, String status, int speed, float temperature) {
+        this.date = date;
+        this.status = status;
+        this.speed = speed;
+        this.temperature = temperature;
+    }
 
     void checkTemperature() {
         if (temperature > 600) {
