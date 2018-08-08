@@ -3,9 +3,9 @@ class DayList {
         int month = 1, year = 2000;
 
         if (args.length > 0)
-            month = args[0];
+            month = Integer.parseInt(args[0]);
         if (args.length > 2)
-            year = args[1];
+            year = Integer.parseInt(args[1]);
         
         System.out.println("DATE: " + month + "/" + year);
     }
