@@ -3,11 +3,11 @@ package com.egahi.ecommerce;
 import java.util.*;
 
 public class Item implements Comparable {
-    private String id;
-    private String name;
-    private double retail;
-    private int quantity;
-    private double price;
+    protected String id;
+    protected String name;
+    protected double retail;
+    protected int quantity;
+    protected double price;
 
     Item(String idIn, String nameIn, String retailIn, String quanIn) {
         id = idIn;
@@ -21,6 +21,15 @@ public class Item implements Comparable {
             price =  retail * .60;
         else  
             price = retail * .70;
+        
+        price = Math.floor(price * 100 + .5) / 100;
+    }
+
+    Item(String idIn, String nameIn, String retailIn, String quanIn, Boolean noDiscount) {
+        Item(id, name, price, quant);
+
+        if noDiscount == true
+            price = retail;
         
         price = Math.floor(price * 100 + .5) / 100;
     }
