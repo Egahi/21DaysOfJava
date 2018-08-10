@@ -26,10 +26,19 @@ public class Item implements Comparable {
     }
 
     Item(String idIn, String nameIn, String retailIn, String quanIn, Boolean noDiscount) {
-        Item(idIn, nameIn, retailIn, quantIn);
+        id = idIn;
+        name = nameIn;
+        retail = Double.parseDouble(retailIn);
+        quantity = Integer.parseInt(quanIn);
 
         if (noDiscount)
             price = retail;
+        else if (quantity > 400)
+            price = retail * .50;
+        else if (quantity > 200)
+            price =  retail * .60;
+        else  
+            price = retail * .70;
         
         price = Math.floor(price * 100 + .5) / 100;
     }
