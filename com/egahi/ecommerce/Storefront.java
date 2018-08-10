@@ -3,7 +3,7 @@ package com.egahi.ecommerce;
 import java.util.*;
 
 public class Storefront {
-    private LinkedList catalog = new LinkedList();
+    protected LinkedList catalog = new LinkedList();
 
     public void addItem(String id, String name, String price,
         String quant) {
