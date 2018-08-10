@@ -26,7 +26,7 @@ public class Item implements Comparable {
     }
 
     Item(String idIn, String nameIn, String retailIn, String quanIn, Boolean noDiscount) {
-        Item(id, name, price, quant);
+        Item(idIn, nameIn, retailIn, quantIn);
 
         if (noDiscount)
             price = retail;
