@@ -9,7 +9,7 @@ public class Item implements Comparable {
     private int quantity;
     private double price;
 
-    Item(String idIn, String nameIn, String retialIn, String quanIn) {
+    Item(String idIn, String nameIn, String retailIn, String quanIn) {
         id = idIn;
         name = nameIn;
         retail = Double.parseDouble(retailIn);
