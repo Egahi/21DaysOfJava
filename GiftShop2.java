@@ -1,6 +1,6 @@
 import com.egahi.ecommerce.*;
 
-public class GiftShop {
+public class GiftShop2 {
     public static void main(String[] arguments) {
         Storefront2 store = new  Storefront2();
         store.addItem("C01", "MUG",  "9.99", "150", true);
