@@ -28,7 +28,7 @@ public class Item implements Comparable {
     Item(String idIn, String nameIn, String retailIn, String quanIn, Boolean noDiscount) {
         Item(id, name, price, quant);
 
-        if noDiscount == true
+        if (noDiscount)
             price = retail;
         
         price = Math.floor(price * 100 + .5) / 100;
