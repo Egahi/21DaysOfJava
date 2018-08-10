@@ -1,4 +1,4 @@
-import com.egahi.ecommerce;
+import com.egahi.ecommerce.*;
 
 public class GiftShop {
     public static void main(String[] arguments) {
