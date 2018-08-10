@@ -21,7 +21,7 @@ class ZipCode {
         ZipCode customZipCode = new ZipCode();
 
         if (arguments.length == 1) {
-            Boolean valid = customZipCode.setZipCode(arguments[0]);
+            Boolean valid = customZipCode.setZipCode(Integer.parseInt(arguments[0]));
             if (valid)
                 System.out.println("Zip Code: " + customZipCode.getZipCode());
             else
