@@ -20,40 +20,6 @@ public class MemberBioData extends JFrame implements ActionListener {
         setSize(300, 300);
         setBounds(100, 100, 600, 400);
 
-/** First implementation    
-        // create components
-        saveButton = new JButton("Save");
-        saveButton.addActionListener(this);
-        clearButton = new JButton("Clear");
-        clearButton.addActionListener(this);
-        closeButton = new JButton("Close");
-        closeButton.addActionListener(this);
-        firstNameField = new JTextField(15);
-        lastNameField = new JTextField(15);
-        departmentField = new JTextField(20);
-        matricNumField = new JTextField(10);
-        firstName = new JLabel("First Name");
-        lastName = new JLabel("Last Name");
-        department = new JLabel("Department");
-        matricNum =  new JLabel("Matriculation Number");
-
-        // create  panel to hold components
-        JPanel buttonPanel = new  JPanel();
-
-        // add  components to panel
-        buttonPanel.add(clearButton);
-        buttonPanel.add(saveButton);
-        buttonPanel.add(closeButton);
-        buttonPanel.add(firstName);
-        buttonPanel.add(firstNameField);
-        buttonPanel.add(lastName);
-        buttonPanel.add(lastNameField);
-        buttonPanel.add(department);
-        buttonPanel.add(departmentField);
-        buttonPanel.add(matricNum);
-        buttonPanel.add(matricNumField);
-        */
-
         // buttons
         String[] buttonText = {"Save", "Clear", "Close"};
         buttons = new JButton[3];
@@ -109,12 +75,12 @@ public class MemberBioData extends JFrame implements ActionListener {
         allPanel.add(centerPanel, BorderLayout.CENTER);
 
         // south panel
-        //southPanel.setLayout(gbl);
+        southPanel.setLayout(gbl);
         for (int i = 0, j = buttons.length; i < j; i++) {
-            //gbc.gridx = i;
-            //gbc.gridy = 0;
-            centerPanel.add(buttons[i], gbc);
-            centerPanel.add(buttons[i], gbc);
+            gbc.gridx = i;
+            gbc.gridy = 0;
+            southPanel.add(buttons[i], gbc);
+            southPanel.add(buttons[i], gbc);
         }
         southPanel.setBackground(Color.GREEN);
         allPanel.add(southPanel, BorderLayout.SOUTH);
