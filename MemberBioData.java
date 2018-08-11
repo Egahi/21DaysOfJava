@@ -19,10 +19,10 @@ public class MemberBioData extends JWindow implements ActionListener {
         JButton openButton = new JButton("Open");
         closeButton = new JButton("Close");
         closeButton.addActionListener(this);
-        firstNameField = new JTextField(5);
-        lastNameField = new JTextField(5);
-        departmentField = new JTextField(5);
-        matricNumField = new JTextField(5);
+        firstNameField = new JTextField(15);
+        lastNameField = new JTextField(15);
+        departmentField = new JTextField(20);
+        matricNumField = new JTextField(10);
         firstName = new JLabel("First Name");
         lastName = new JLabel("Last Name");
         department = new JLabel("Department");
