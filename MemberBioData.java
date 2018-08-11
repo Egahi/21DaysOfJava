@@ -9,7 +9,7 @@ public class MemberBioData extends JWindow {
         setSize(300, 300);
         setBounds(100, 100, 600, 400);
         getContentPane().setBackground(Color.BLACK);
-        setVisible(true);
+    
         // create buttons
         JButton saveButton = new JButton("Save");
         JButton openButton = new JButton("Open");
@@ -27,6 +27,8 @@ public class MemberBioData extends JWindow {
 
         // add panel to window
         add(buttonPanel);
+
+        setVisible(true);
     }
 
     public static void main(String[] args) {
