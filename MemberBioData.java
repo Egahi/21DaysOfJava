@@ -2,15 +2,15 @@ import java.awt.*;
 import javax.swing.*;
 import  java.awt.event.*;
 
-public class MemberBioData extends JWindow implements ActionListener {
+public class MemberBioData extends JFrame implements ActionListener {
     JButton closeButton;
     JTextField firstNameField, lastNameField, departmentField, matricNumField;
     JLabel firstName, lastName, department, matricNum;
 
     public MemberBioData() {
         super();
-        // setTitle("Member Bio Data");
-        // setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setTitle("Member Bio Data");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 300);
         setBounds(100, 100, 600, 400);
     
