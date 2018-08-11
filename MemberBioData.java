@@ -99,6 +99,11 @@ public class MemberBioData extends JFrame implements ActionListener {
         }
         centerPanel.setBackground(Color.GREEN);
         allPanel.add(centerPanel, BorderLayout.CENTER);
+
+        // north panel
+        northPanel.setLayout(gbl);
+        northPanel.setBackground(Color.CYAN);
+        allPanel.add(northPanel, BorderLayout.NORTH);
         
         // add parent to container
         add(allPanel);
