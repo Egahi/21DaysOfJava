@@ -4,6 +4,8 @@ import  java.awt.event.*;
 
 public class MemberBioData extends JWindow implements ActionListener {
     JButton closeButton;
+    JTextField firstNameField;
+    JLabel firstName;
 
     public MemberBioData() {
         super();
@@ -17,6 +19,8 @@ public class MemberBioData extends JWindow implements ActionListener {
         JButton openButton = new JButton("Open");
         closeButton = new JButton("Close");
         closeButton.addActionListener(this);
+        firstNameField = new JTextField(5);
+        firstName = new JLabel("First Name");
 
         // create  panel for buttons
         JPanel buttonPanel = new  JPanel();
@@ -25,6 +29,8 @@ public class MemberBioData extends JWindow implements ActionListener {
         buttonPanel.add(saveButton);
         buttonPanel.add(openButton);
         buttonPanel.add(closeButton);
+        buttonPanel.add(firstName);
+        buttonPanel.add(firstNameField);
 
         buttonPanel.setBackground(Color.BLUE);
 
