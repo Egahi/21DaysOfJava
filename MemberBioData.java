@@ -89,21 +89,35 @@ public class MemberBioData extends JFrame implements ActionListener {
         JPanel centerPanel = new JPanel();
         JPanel northPanel = new JPanel();
         JPanel southPanel =  new JPanel();
+
+        // north panel
+        //northPanel.setLayout(gbl);
+        northPanel.setBackground(Color.CYAN);
+        allPanel.add(northPanel, BorderLayout.NORTH);
         
         // center panel
         centerPanel.setLayout(gbl);
         for (int i = 0, j = fields.length; i < j; i++) {
             gbc.gridx = 0;
             gbc.gridy = i;
+            centerPanel.add(labels[i], gbc);
+            gbc.gridx++;
             centerPanel.add(fields[i], gbc);
+            gbc.gridx--;
         }
-        centerPanel.setBackground(Color.GREEN);
+        centerPanel.setBackground(Color.CYAN);
         allPanel.add(centerPanel, BorderLayout.CENTER);
 
-        // north panel
-        northPanel.setLayout(gbl);
-        northPanel.setBackground(Color.CYAN);
-        allPanel.add(northPanel, BorderLayout.NORTH);
+        // south panel
+        //southPanel.setLayout(gbl);
+        for (int i = 0, j = buttons.length; i < j; i++) {
+            //gbc.gridx = i;
+            //gbc.gridy = 0;
+            centerPanel.add(buttons[i], gbc);
+            centerPanel.add(buttons[i], gbc);
+        }
+        southPanel.setBackground(Color.GREEN);
+        allPanel.add(southPanel, BorderLayout.SOUTH);
         
         // add parent to container
         add(allPanel);
