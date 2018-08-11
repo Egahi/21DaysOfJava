@@ -4,8 +4,8 @@ import  java.awt.event.*;
 
 public class MemberBioData extends JWindow implements ActionListener {
     JButton closeButton;
-    JTextField firstNameField;
-    JLabel firstName;
+    JTextField firstNameField, lastNameField, departmentField, matricNumField;
+    JLabel firstName, lastName, department, matricNum;
 
     public MemberBioData() {
         super();
@@ -20,17 +20,29 @@ public class MemberBioData extends JWindow implements ActionListener {
         closeButton = new JButton("Close");
         closeButton.addActionListener(this);
         firstNameField = new JTextField(5);
+        lastNameField = new JTextField(5);
+        departmentField = new JTextField(5);
+        matricNumField = new JTextField(5);
         firstName = new JLabel("First Name");
+        lastName = new JLabel("Last Name");
+        department = new JLabel("Department");
+        matricNum =  new JLabel("Matriculation Number");
 
-        // create  panel for buttons
+        // create  panel to hold features
         JPanel buttonPanel = new  JPanel();
 
-        // add  buttons to panel
+        // add  features to panel
         buttonPanel.add(saveButton);
         buttonPanel.add(openButton);
         buttonPanel.add(closeButton);
         buttonPanel.add(firstName);
         buttonPanel.add(firstNameField);
+        buttonPanel.add(lastName);
+        buttonPanel.add(lastNameField);
+        buttonPanel.add(department);
+        buttonPanel.add(departmentField);
+        buttonPanel.add(matricNum);
+        buttonPanel.add(matricNumField);
 
         buttonPanel.setBackground(Color.BLUE);
 
