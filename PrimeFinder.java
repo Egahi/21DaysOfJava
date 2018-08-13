@@ -1,4 +1,4 @@
-public class PrimeFinder implements Runnanble {
+public class PrimeFinder implements Runnable {
     public long target, prime;
     public boolean finished = false;
     private Thread runner;
@@ -6,7 +6,7 @@ public class PrimeFinder implements Runnanble {
     PrimeFinder(long inTarget) {
         target = inTarget;
         if (runner == null) {
-            runner = new Threads(this);
+            runner = new Thread(this);
             runner.start();
         }
     }
