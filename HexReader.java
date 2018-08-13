@@ -10,7 +10,8 @@ class HexReader  {
 
     void readLine(String code) {
         try {
-            for (int j =  0, k = code.length(); j < k; j++) {
+            for (int j = 0, k = code.length(); j + 1 < k; j++) {
+                String sub = code.substring(j, j + 2);
                 int num = Integer.parseInt(sub, 16);
                 if (num == 255)
                     return;
