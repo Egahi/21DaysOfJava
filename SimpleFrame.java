@@ -1,4 +1,4 @@
-import java.swing.JFrame;
+import javax.swing.JFrame;
 
 public class SimpleFrame extends JFrame {
     public SimpleFrame() {
