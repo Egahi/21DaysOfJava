@@ -2,11 +2,9 @@ import java.util.*;
 
 class ShoppingCart {
     Vector<Fruit> newCart;
-    Fruit[] fruit = new Fruit[3];
-    fruit[0] = new Fruit("Pear", 50, 50.00F);
-    fruit[1] = new Fruit("Apple", 150, 100.00F);
-    fruit[2] = new Fruit("Pineapple", 10, 400.00F);
-
+    Fruit[] fruit = {new Fruit("Pear", 50, 50.00F),
+                    new Fruit("Apple", 150, 100.00F),
+                    new Fruit("Pineapple", 10, 400.00F)};
 
     public ShoppingCart() {
         newCart = new Vector<Fruit>();        
@@ -17,7 +15,7 @@ class ShoppingCart {
     void addFruits(Fruit[] fruit) {
         for (int i = 0, j = fruit.length; i < j; i++) {
             if (!newCart.contains(fruit)) {
-                newCart.add(fruit);
+                newCart.add(fruit[i]);
             }
         }
     }
