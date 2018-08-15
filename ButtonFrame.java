@@ -15,7 +15,7 @@ public class ButtonFrame  extends JFrame {
         panel.add(load);
         panel.add(save);
         panel.add(unsubscribe);
-        panel.add(photos);
+        // panel.add(photos);
         add(panel);
         pack();
         setVisible(true);
