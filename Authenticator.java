@@ -4,6 +4,9 @@ public class Authenticator extends javax.swing.JFrame {
     JTextField username = new  JTextField(15);
     JPasswordField password = new JPasswordField(15);
     JTextArea comments = new  JTextArea(4, 15);
+    JScrollPane scroll = new JScrollPane(comments,
+        ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS,
+        ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
     JButton ok = new JButton("OK");
     JButton cancel = new JButton("Cancel");
 
@@ -24,6 +27,7 @@ public class Authenticator extends javax.swing.JFrame {
         panel.add(password);
         panel.add(commentsLabel);
         panel.add(comments);
+        panel.add(scroll);
         panel.add(ok);
         panel.add(cancel);
         add(panel);
