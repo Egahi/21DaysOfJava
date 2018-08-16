@@ -1,9 +1,13 @@
 import javax.swing.*;
 
 public class FormatFrame extends JFrame {
-    JRadioButton[] teams = new JRadioButton[4];
-    String[] formats = {"Atom", "RSS 0.92", "RSS 1.0", "RSS 2.0"};
+    String[] formats = {"Atom", "RSS 0.92", "RSS 1.0", "RSS 2.0",
+        "0xDECAFBAD", "Cafe au Lait", "Hack the Planet", "Ideoplex", 
+        "Inessential", "Intertwingly", "Markpasc", "Postneo", "RC3", 
+        "Workbench"};
+    JRadioButton[] teams = new JRadioButton[formats.length];
     JComboBox formatBox = new JComboBox();
+    JList subList = new JList(formats);
 
     public FormatFrame() {
         super("Choose an Output Format");
@@ -34,6 +38,13 @@ public class FormatFrame extends JFrame {
         JLabel formatLabel = new JLabel("Output formats");
         panel.add(formatLabel);
         panel.add(formatBox);
+
+        JLabel listLabel = new JLabel("Out Format");
+        panel.add(listLabel);
+        subList.setVisibleRowCount(8);
+        JScrollPane scroller = new JScrollPane(subList);
+        panel.add(scroller);
+
         add(panel);
         setVisible(true);
     }
