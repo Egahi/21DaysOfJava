@@ -5,10 +5,6 @@ import java.awt.event.*;
 public class MBD extends JFrame implements ActionListener {
     //JButton saveButton, clearButton, closeButton;
     JButton[] buttons;
-    // JTextField firstNameField, lastNameField, departmentField, matricNumField;
-    JTextField[] fields;
-    // JLabel firstName, lastName, department, matricNum;
-    JLabel[] labels;
 
     private JLabel nameLabel = new JLabel("Name: ",
         SwingConstants.RIGHT);
@@ -25,7 +21,7 @@ public class MBD extends JFrame implements ActionListener {
 
     public MBD() {
         super();
-        setTitle("Member Bio Data");
+        setTitle("Portfolio Site Informatin");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 300);
         setBounds(100, 100, 600, 400);
@@ -37,26 +33,9 @@ public class MBD extends JFrame implements ActionListener {
             // create buttons
             buttons[i] = new JButton(buttonText[i]);
             buttons[i].addActionListener(this);
-        }
-        
-        // labels
-        String[] labelText = {"First Name", "Last Name", "Department", "Matriculation Number"};
-        labels = new JLabel[4];
-        for (int i = 0, j =  labelText.length; i < j; i++) {
-            // create labels
-            labels[i] = new JLabel(labelText[i]);
-        }
+        }   
 
-        // text fields
-        int[] fieldsLength = {15, 15, 20, 10};
-        fields = new JTextField[4];
-        for (int i = 0, j =  fieldsLength.length; i < j; i++) {
-            // create fields
-            fields[i] = new JTextField(fieldsLength[i]);
-            // fields[i].addActionListener(this);
-        }        
-
-                // site name
+        // site name
         String response1 = JOptionPane.showInputDialog(null,
             "Enter the site name:");
         name = new JTextField(response1, 20);
