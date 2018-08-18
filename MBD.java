@@ -1,6 +1,6 @@
 import java.awt.*;
 import javax.swing.*;
-import  java.awt.event.*;
+import java.awt.event.*;
 
 public class MBD extends JFrame implements ActionListener {
     //JButton saveButton, clearButton, closeButton;
