@@ -1,0 +1,152 @@
+import java.awt.*;
+import javax.swing.*;
+import  java.awt.event.*;
+
+public class MBD extends JFrame implements ActionListener {
+    //JButton saveButton, clearButton, closeButton;
+    JButton[] buttons;
+    // JTextField firstNameField, lastNameField, departmentField, matricNumField;
+    JTextField[] fields;
+    // JLabel firstName, lastName, department, matricNum;
+    JLabel[] labels;
+
+    private JLabel nameLabel = new JLabel("Name: ",
+        SwingConstants.RIGHT);
+    private JTextField name;
+    private JLabel urlLabel = new JLabel("URL: ",
+        SwingConstants.RIGHT);
+    private JTextField url;
+    private JLabel typeLabel = new JLabel("Type: ",
+        SwingConstants.RIGHT);
+    private JTextField type;
+
+    GridBagLayout gbl;
+    GridBagConstraints gbc;
+
+    public MBD() {
+        super();
+        setTitle("Member Bio Data");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(300, 300);
+        setBounds(100, 100, 600, 400);
+
+        // buttons
+        String[] buttonText = {"Save", "Clear", "Close"};
+        buttons = new JButton[3];
+        for (int i = 0, j =  buttonText.length; i < j; i++) {
+            // create buttons
+            buttons[i] = new JButton(buttonText[i]);
+            buttons[i].addActionListener(this);
+        }
+        
+        // labels
+        String[] labelText = {"First Name", "Last Name", "Department", "Matriculation Number"};
+        labels = new JLabel[4];
+        for (int i = 0, j =  labelText.length; i < j; i++) {
+            // create labels
+            labels[i] = new JLabel(labelText[i]);
+        }
+
+        // text fields
+        int[] fieldsLength = {15, 15, 20, 10};
+        fields = new JTextField[4];
+        for (int i = 0, j =  fieldsLength.length; i < j; i++) {
+            // create fields
+            fields[i] = new JTextField(fieldsLength[i]);
+            // fields[i].addActionListener(this);
+        }        
+
+                // site name
+        String response1 = JOptionPane.showInputDialog(null,
+            "Enter the site name:");
+        name = new JTextField(response1, 20);
+
+        // Site address
+        String response2 = JOptionPane.showInputDialog(null,
+            "Enter the site address:");
+        url = new JTextField(response2, 20);
+
+        // site type
+        String[] choices = {"Personal", "Commercial", "Unknown"};
+        int response3 = JOptionPane.showOptionDialog(null,
+            "What type of site is it?",
+            "Site type",
+            0,
+            JOptionPane.QUESTION_MESSAGE,
+            null,
+            choices,
+            choices[0]);
+        type = new JTextField(choices[response3], 20);
+
+        gbl = new GridBagLayout();
+        gbc = new GridBagConstraints();
+
+        // create panels
+        JPanel allPanel = new JPanel();
+        allPanel.setLayout(new BorderLayout());
+        JPanel centerPanel = new JPanel();
+        JPanel northPanel = new JPanel();
+        JPanel southPanel =  new JPanel();
+
+        // north panel
+        //northPanel.setLayout(gbl);
+        northPanel.setBackground(Color.CYAN);
+        allPanel.add(northPanel, BorderLayout.NORTH);
+        
+        // center panel
+        centerPanel.setLayout(gbl);
+        /*for (int i = 0, j = fields.length; i < j; i++) {
+            gbc.gridx = 0;
+            gbc.gridy = i;
+            centerPanel.add(labels[i], gbc);
+            gbc.gridx++;
+            centerPanel.add(fields[i], gbc);
+            gbc.gridx--;
+        }*/
+
+        //setLayout(new GridLayout(3, 2));
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        centerPanel.add(nameLabel, gbc);
+        centerPanel.add(name, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        centerPanel.add(urlLabel, gbc);
+        centerPanel.add(url, gbc);
+        gbc.gridx = 0;
+        gbc.gridy = 2;
+        centerPanel.add(typeLabel, gbc);
+        centerPanel.add(type, gbc);
+        centerPanel.setBackground(Color.CYAN);
+        allPanel.add(centerPanel, BorderLayout.CENTER);
+
+        // south panel
+        southPanel.setLayout(gbl);
+        for (int i = 0, j = buttons.length; i < j; i++) {
+            gbc.gridx = i;
+            gbc.gridy = 0;
+            southPanel.add(buttons[i], gbc);
+            southPanel.add(buttons[i], gbc);
+        }
+        southPanel.setBackground(Color.GREEN);
+        allPanel.add(southPanel, BorderLayout.SOUTH);
+        
+        // add parent to container
+        add(allPanel);
+
+        setVisible(true);
+        getContentPane().setBackground(Color.BLACK);
+    }
+
+    public void actionPerformed(ActionEvent event) {
+        Object source = event.getSource();
+
+        if (source == buttons[2]) {
+            System.exit(0);
+        }
+    }
+
+    public static void main(String[] args) {
+        MemberBioData member = new MemberBioData();
+    }
+}
