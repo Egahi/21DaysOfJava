@@ -95,27 +95,21 @@ public class MBD extends JFrame implements ActionListener {
         
         // center panel
         centerPanel.setLayout(gbl);
-        /*for (int i = 0, j = fields.length; i < j; i++) {
-            gbc.gridx = 0;
-            gbc.gridy = i;
-            centerPanel.add(labels[i], gbc);
-            gbc.gridx++;
-            centerPanel.add(fields[i], gbc);
-            gbc.gridx--;
-        }*/
-
         //setLayout(new GridLayout(3, 2));
         gbc.gridx = 0;
         gbc.gridy = 0;
         centerPanel.add(nameLabel, gbc);
+        gbc.gridx = 1;
         centerPanel.add(name, gbc);
         gbc.gridx = 0;
         gbc.gridy = 1;
         centerPanel.add(urlLabel, gbc);
+        gbc.gridx = 1;
         centerPanel.add(url, gbc);
         gbc.gridx = 0;
         gbc.gridy = 2;
         centerPanel.add(typeLabel, gbc);
+        gbc.gridx = 1;
         centerPanel.add(type, gbc);
         centerPanel.setBackground(Color.CYAN);
         allPanel.add(centerPanel, BorderLayout.CENTER);
@@ -147,6 +141,6 @@ public class MBD extends JFrame implements ActionListener {
     }
 
     public static void main(String[] args) {
-        MemberBioData member = new MemberBioData();
+        MBD member = new MBD();
     }
 }
