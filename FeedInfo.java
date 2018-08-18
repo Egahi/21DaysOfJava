@@ -40,7 +40,7 @@ public class FeedInfo extends JFrame {
             choices[0]);
         type = new JTextField(choices[response3], 20);
 
-        setLayout(new GridLayout(3, 5));
+        setLayout(new GridLayout(3, 2));
         add(nameLabel);
         add(name);
         add(urlLabel);
