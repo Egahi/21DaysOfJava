@@ -1,6 +1,8 @@
 import java.awt.*;
 import javax.swing.*;
+import java.util.*;
 import  java.awt.event.*;
+import java.sql.*;
 
 public class MemberBioData extends JFrame implements ActionListener {
     //JButton saveButton, clearButton, closeButton;
@@ -12,6 +14,10 @@ public class MemberBioData extends JFrame implements ActionListener {
 
     GridBagLayout gbl;
     GridBagConstraints gbc;
+
+    Connection connect;
+    PreparedStatement pstmt;
+    ResultSet rs;
 
     public MemberBioData() {
         super();
@@ -97,6 +103,12 @@ public class MemberBioData extends JFrame implements ActionListener {
 
         if (source == buttons[2]) {
             System.exit(0);
+        } else if (source == buttons[1]) {
+            for (int i = 0, j = fields.length; i < j; i++) {
+                fields[i].setText("");
+            }
+        } else if (source == buttons[0]) {
+            saveData();
         }
     }
 

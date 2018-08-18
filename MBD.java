@@ -115,6 +115,10 @@ public class MBD extends JFrame implements ActionListener {
 
         if (source == buttons[2]) {
             System.exit(0);
+        } else if (source == buttons[1]) {
+            name.setText("");
+            url.setText("");
+            type.setText("");
         }
     }
 
