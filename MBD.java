@@ -115,7 +115,6 @@ public class MBD extends JFrame implements ActionListener {
         allPanel.add(centerPanel, BorderLayout.CENTER);
 
         // south panel
-        southPanel.setLayout(gbl);
         for (int i = 0, j = buttons.length; i < j; i++) {
             gbc.gridx = i;
             gbc.gridy = 0;
