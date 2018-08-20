@@ -18,6 +18,18 @@ public class FeedBar extends JFrame {
         bar.add(save);
         bar.add(subscribe);
 
+        // create menu
+        JMenuItem j1 = new JMenuItem("Load");
+        JMenuItem j2 = new JMenuItem("Save");
+        JMenuItem j3 = new JMenuItem("Subscribe");
+        JMenuBar menuBar = new JMenuBar();
+        JMenu menu = new JMenu("Feeds");
+        menu.add(j1);
+        menu.add(j2);
+        menu.addSeparator();
+        menu.add(j3);
+        menuBar.add(menu);
+
         // prepare user interface
         JTextArea edit =  new JTextArea(8, 40);
         JScrollPane scroll = new JScrollPane(edit);
@@ -25,6 +37,7 @@ public class FeedBar extends JFrame {
         setLayout(bord);
         add("North", bar);
         add("Center", scroll);
+        setJMenuBar(menuBar);
         pack();
         setVisible(true);
     }
