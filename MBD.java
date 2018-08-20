@@ -21,7 +21,7 @@ public class MBD extends JFrame implements ActionListener {
 
     public MBD() {
         super();
-        setTitle("Portfolio Site Informatin");
+        // setTitle("Portfolio Site Informatin");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setSize(300, 300);
         setBounds(100, 100, 600, 400);
@@ -38,6 +38,7 @@ public class MBD extends JFrame implements ActionListener {
         // site name
         String response1 = JOptionPane.showInputDialog(null,
             "Enter the site name:");
+        setTitle(response1);
         name = new JTextField(response1, 20);
 
         // Site address
