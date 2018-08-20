@@ -49,7 +49,7 @@ public class FeedBar extends JFrame {
         BorderLayout bord = new  BorderLayout();
         setLayout(bord);
         add("North", bar);
-        add("North", tabs);
+        add("South", tabs);
         add("Center", scroll);
         setJMenuBar(menuBar);
         pack();
