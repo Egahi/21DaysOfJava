@@ -1,7 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
 import java.util.*;
-import  java.awt.event.*;
+import java.awt.event.*;
 import java.sql.*;
 
 public class MemberBioData extends JFrame implements ActionListener {
