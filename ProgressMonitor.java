@@ -25,9 +25,8 @@ public class ProgressMonitor extends JFrame {
             current.setValue(num);
             try {
                 Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                num += 95;
-            }
+            } catch (InterruptedException e) {}
+            num += 95;
         }
     }
 
