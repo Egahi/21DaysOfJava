@@ -1,6 +1,7 @@
 import java.awt.*;
 import javax.swing.*;
 import java.awt.event.*;
+import java.util.*;
 
 public class ProgressMonitor extends JFrame {
     JProgressBar current;
@@ -8,6 +9,8 @@ public class ProgressMonitor extends JFrame {
     JButton find;
     Thread runner;
     int num = 0;
+    JLabel tl;
+    JTextField tf;
 
     public ProgressMonitor() {
         super("Progress Monitor");
@@ -17,7 +20,13 @@ public class ProgressMonitor extends JFrame {
         current = new JProgressBar(0, 2000);
         current.setValue(0);
         current.setStringPainted(true);
+
+        tl = new JLabel("Progress");
+        tf = new JTextField();
+
         add(current);
+        add(tl);
+        add(tf);
     }
 
     public void iterate() {
@@ -27,11 +36,13 @@ public class ProgressMonitor extends JFrame {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {}
             num += 95;
+            tf.setText("" + num);
         }
     }
 
     public static void main(String[] arguments) {
         ProgressMonitor frame =  new ProgressMonitor();
+        frame.pack();
         frame.setVisible(true);
         frame.iterate();
     }
