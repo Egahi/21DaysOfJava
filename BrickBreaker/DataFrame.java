@@ -65,6 +65,11 @@ public class DataFrame extends JFrame implements ActionListener {
 
     public void actionPerformed(ActionEvent event) {
         Object source = event.getSource();
+        if (source == start) {
+            // begin game
+        } else if (source == back) {
+            // go to previous screen
+        }
     }
 
     public static void main(String[] arguments) {
