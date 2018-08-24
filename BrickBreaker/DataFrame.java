@@ -68,11 +68,10 @@ public class DataFrame extends JFrame implements ActionListener {
         if (source == start) {
             // begin game
         } else if (source == back) {
-            // go to previous screen
+            MainFrame mf = new MainFrame();
+            mf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            mf.setVisible(true);
+            setVisible(false);
         }
-    }
-
-    public static void main(String[] arguments) {
-        DataFrame df = new DataFrame();
     }
 }
