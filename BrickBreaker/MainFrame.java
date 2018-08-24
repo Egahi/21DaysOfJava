@@ -13,8 +13,14 @@ public class MainFrame extends JFrame {
         setBounds(250, 250, 250, 250);
 
         quickGame = new JButton("Quick Game");
+        quickGame.setBackground(Color.black);
+        quickGame.setForeground(Color.white);
         topScores = new JButton("Top Scores");
+        topScores.setBackground(Color.black);
+        topScores.setForeground(Color.white);
         exit = new JButton("Exit");
+        exit.setBackground(Color.black);
+        exit.setForeground(Color.white);
     
         gbl = new GridBagLayout();
         gbc = new GridBagConstraints();
