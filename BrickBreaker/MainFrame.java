@@ -4,7 +4,7 @@ import java.util.*;
 import java.awt.event.*;
 
 public class MainFrame extends JFrame implements ActionListener{
-    JButton quickGame, topScores, exit;
+    JButton paly, topScores, exit;
     GridBagLayout gbl;
     GridBagConstraints gbc;
 
@@ -13,10 +13,10 @@ public class MainFrame extends JFrame implements ActionListener{
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(50, 50, 750, 550);
 
-        quickGame = new JButton("Quick Game");
-        quickGame.setBackground(Color.black);
-        quickGame.setForeground(Color.white);
-        quickGame.addActionListener(this);
+        play = new JButton("Play");
+        play.setBackground(Color.black);
+        play.setForeground(Color.white);
+        play.addActionListener(this);
         topScores = new JButton("Top Scores");
         topScores.setBackground(Color.black);
         topScores.setForeground(Color.white);
@@ -50,7 +50,7 @@ public class MainFrame extends JFrame implements ActionListener{
         gbc.gridy = 1;
         // add padding between buttons
         gbc.insets = new Insets(10, 10, 10, 10);
-        centerPanel.add(quickGame, gbc);
+        centerPanel.add(play, gbc);
         gbc.gridx = 1;
         centerPanel.add(topScores, gbc);
         gbc.gridx = 2;
@@ -74,7 +74,7 @@ public class MainFrame extends JFrame implements ActionListener{
             System.exit(0);
         } else if (source == topScores) {
             // display leader board frame
-        } else if (source == quickGame) {
+        } else if (source == play) {
             // display game frame
         }
     }
