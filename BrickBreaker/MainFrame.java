@@ -11,7 +11,7 @@ public class MainFrame extends JFrame implements ActionListener{
     public MainFrame() {
         super("Break Breaker");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(150, 250, 350, 350);
+        setBounds(50, 150, 350, 350);
 
         quickGame = new JButton("Quick Game");
         quickGame.setBackground(Color.black);
@@ -33,12 +33,21 @@ public class MainFrame extends JFrame implements ActionListener{
         JPanel allPanel = new JPanel();
         allPanel.setLayout(new BorderLayout());
         
+        // north panel
+        JPanel northPanel = new JPanel();
+        JLabel title = new JLabel("BRICK BREAKER!");
+        title.setFont(new Font("serif", Font.PLAIN, 90));
+        title.setForeground(Color.white);
+        northPanel.add(title);
+        northPanel.setBackground(Color.black);
+        allPanel.add(northPanel, BorderLayout.NORTH);
+
         // center panel
         JPanel centerPanel = new JPanel();
         centerPanel.setBackground(Color.black);
         centerPanel.setLayout(gbl);
         gbc.gridx = 0;
-        gbc.gridy = 0;
+        gbc.gridy = 1;
         // add padding between buttons
         gbc.insets = new Insets(10, 10, 10, 10);
         centerPanel.add(quickGame, gbc);
