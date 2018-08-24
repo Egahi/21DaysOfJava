@@ -4,7 +4,7 @@ import java.util.*;
 import java.awt.event.*;
 
 public class MainFrame extends JFrame implements ActionListener{
-    JButton paly, topScores, exit;
+    JButton play, topScores, exit;
     GridBagLayout gbl;
     GridBagConstraints gbc;
 
