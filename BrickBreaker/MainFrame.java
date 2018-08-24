@@ -11,7 +11,7 @@ public class MainFrame extends JFrame implements ActionListener{
     public MainFrame() {
         super("Break Breaker");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(50, 150, 350, 350);
+        setBounds(50, 50, 750, 550);
 
         quickGame = new JButton("Quick Game");
         quickGame.setBackground(Color.black);
@@ -36,7 +36,7 @@ public class MainFrame extends JFrame implements ActionListener{
         // north panel
         JPanel northPanel = new JPanel();
         JLabel title = new JLabel("BRICK BREAKER!");
-        title.setFont(new Font("serif", Font.PLAIN, 90));
+        title.setFont(new Font("serif", Font.PLAIN, 80));
         title.setForeground(Color.white);
         northPanel.add(title);
         northPanel.setBackground(Color.black);
@@ -72,6 +72,10 @@ public class MainFrame extends JFrame implements ActionListener{
 
         if (source == exit) {
             System.exit(0);
+        } else if (source == topScores) {
+            // display leader board frame
+        } else if (source == quickGame) {
+            // display game frame
         }
     }
  
