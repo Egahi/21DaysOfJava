@@ -1,8 +1,9 @@
 import javax.swing.*;
 import java.awt.*;
 import java.util.*;
+import java.awt.event.*;
 
-public class MainFrame extends JFrame {
+public class MainFrame extends JFrame implements ActionListener{
     JButton quickGame, topScores, exit;
     GridBagLayout gbl;
     GridBagConstraints gbc;
@@ -15,12 +16,15 @@ public class MainFrame extends JFrame {
         quickGame = new JButton("Quick Game");
         quickGame.setBackground(Color.black);
         quickGame.setForeground(Color.white);
+        quickGame.addActionListener(this);
         topScores = new JButton("Top Scores");
         topScores.setBackground(Color.black);
         topScores.setForeground(Color.white);
+        topScores.addActionListener(this);
         exit = new JButton("Exit");
         exit.setBackground(Color.black);
         exit.setForeground(Color.white);
+        exit.addActionListener(this);
     
         gbl = new GridBagLayout();
         gbc = new GridBagConstraints();
@@ -52,6 +56,14 @@ public class MainFrame extends JFrame {
         allPanel.add(southPanel, BorderLayout.SOUTH);
         add(allPanel);
         setVisible(true);
+    }
+
+    public void actionPerformed(ActionEvent event) {
+        Object source = event.getSource();
+
+        if (source == exit) {
+            System.exit(0);
+        }
     }
  
     public static void main(String[] arguments) {
