@@ -10,7 +10,7 @@ public class MainFrame extends JFrame {
     public MainFrame() {
         super("Break Breaker");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(250, 250, 250, 250);
+        setBounds(150, 250, 350, 350);
 
         quickGame = new JButton("Quick Game");
         quickGame.setBackground(Color.black);
@@ -44,6 +44,12 @@ public class MainFrame extends JFrame {
         centerPanel.add(exit, gbc);
         allPanel.add(centerPanel, BorderLayout.CENTER);
         
+        // south panel
+        JPanel southPanel = new JPanel();
+        southPanel.setBackground(Color.black);
+        JLabel credit = new JLabel("(C) Egahi S. O.");
+        southPanel.add(credit);
+        allPanel.add(southPanel, BorderLayout.SOUTH);
         add(allPanel);
         setVisible(true);
     }
