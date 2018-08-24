@@ -12,7 +12,7 @@ public class DataFrame extends JFrame implements ActionListener {
     public DataFrame() {
         super("Data Page");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(50, 50, 750, 550);
+        //setBounds(50, 50, 750, 550);
 
         gbl = new GridBagLayout();
         gbc = new GridBagConstraints();
@@ -63,14 +63,31 @@ public class DataFrame extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    /**
+     * sets the location size of the frame
+     *  to the updated values due to resize by user
+     * @param p is the current location (top left coordinates) and
+     * @param r is the current frame size (width and height)
+     */
+    public void setBoundsParameters(Point p, Rectangle r) {
+        setBounds(p.x, p.y, r.width, r.height);
+    }
+
     public void actionPerformed(ActionEvent event) {
         Object source = event.getSource();
         if (source == start) {
             // begin game
         } else if (source == back) {
+            Rectangle r = getBounds();
+            Point p = getLocation();
+
+            // display main frame
             MainFrame mf = new MainFrame();
             mf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            mf.setBoundsParameters(p, r);
             mf.setVisible(true);
+
+            // hide data frame
             setVisible(false);
         }
     }

@@ -11,8 +11,8 @@ public class MainFrame extends JFrame implements ActionListener{
     public MainFrame() {
         super("Break Breaker");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(50, 50, 750, 550);
 
+        // buttons
         play = new JButton("Play");
         play.setBackground(Color.black);
         play.setForeground(Color.white);
@@ -46,10 +46,10 @@ public class MainFrame extends JFrame implements ActionListener{
         JPanel centerPanel = new JPanel();
         centerPanel.setBackground(Color.black);
         centerPanel.setLayout(gbl);
-        gbc.gridx = 0;
-        gbc.gridy = 1;
         // add padding between buttons
         gbc.insets = new Insets(10, 10, 10, 10);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
         centerPanel.add(play, gbc);
         gbc.gridx = 1;
         centerPanel.add(topScores, gbc);
@@ -67,6 +67,16 @@ public class MainFrame extends JFrame implements ActionListener{
         setVisible(true);
     }
 
+    /**
+     * sets the location size of the frame
+     *  to the updated values due to resize by user
+     * @param p is the current location (top left coordinates) and
+     * @param r is the current frame size (width and height)
+     */
+    public void setBoundsParameters(Point p, Rectangle r) {
+        setBounds(p.x, p.y, r.width, r.height);
+    }
+
     public void actionPerformed(ActionEvent event) {
         Object source = event.getSource();
 
@@ -75,14 +85,26 @@ public class MainFrame extends JFrame implements ActionListener{
         } else if (source == topScores) {
             // display leader board frame
         } else if (source == play) {
+            // current size of frame
+            Rectangle r = getBounds();
+            // current location of fram
+            Point p = getLocation();
+            
+            // display dataframe
             DataFrame df = new DataFrame();
+            df.setBoundsParameters(p, r);
             df.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             df.setVisible(true);
+            
+            // hide main frame
             setVisible(false);
         }
     }
  
     public static void main(String[] arguments) {
         MainFrame mf = new MainFrame();
+        Point p = new Point(50, 50);
+        Rectangle r = new Rectangle(750, 550);
+        mf.setBoundsParameters(p, r);
     }
 }
