@@ -75,7 +75,10 @@ public class MainFrame extends JFrame implements ActionListener{
         } else if (source == topScores) {
             // display leader board frame
         } else if (source == play) {
-            // display game frame
+            DataFrame df = new DataFrame();
+            df.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            df.setVisible(true);
+            setVisible(false);
         }
     }
  
