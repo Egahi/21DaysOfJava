@@ -7,6 +7,8 @@ import java.sql.*;
 public class DataFrame extends JFrame implements ActionListener {
     GridBagLayout gbl;
     GridBagConstraints gbc;
+    JButton start, back;
+
     public DataFrame() {
         super("Data Page");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -35,6 +37,19 @@ public class DataFrame extends JFrame implements ActionListener {
         centerPanel.add(nameLabel, gbc);
         gbc.gridx = 1;
         centerPanel.add(nameField, gbc);
+        start = new JButton("Start");
+        start.setBackground(Color.black);
+        start.setForeground(Color.white);
+        start.addActionListener(this);
+        gbc.gridx = 0;
+        gbc.gridy = 1;
+        centerPanel.add(start, gbc);
+        back = new JButton("Back");
+        back.setBackground(Color.black);
+        back.setForeground(Color.white);
+        back.addActionListener(this);
+        gbc.gridx = 2;
+        centerPanel.add(back, gbc);
         allPanel.add(centerPanel, BorderLayout.CENTER);
 
         // south panel
