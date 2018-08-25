@@ -4,7 +4,7 @@ import java.util.*;
 import java.awt.event.*;
 import java.sql.*;
 
-public class TopScorePane extends JPanel implements ActionListener {
+public class TopScorePane extends JPanel {
     GridBagLayout gbl;
     GridBagConstraints  gbc;
     Jbutton back;
@@ -14,6 +14,9 @@ public class TopScorePane extends JPanel implements ActionListener {
     PreparedStatement pstmt;
 
     public TopScorePane() {
+        super();
+        setSize(750, 550);
+
         gbl = new GridBagLayout();
         gbc = new GridBagConstraints();
 
@@ -60,5 +63,7 @@ public class TopScorePane extends JPanel implements ActionListener {
         JLabel credit = new JLabel("(C) Egahi S. O.");
         southPanel.add(credit);
         allPanel.add(southPanel, BorderLayout.SOUTH);
+
+        add(allPanel);
     }
 }
