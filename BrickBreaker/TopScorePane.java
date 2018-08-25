@@ -7,7 +7,7 @@ import java.sql.*;
 public class TopScorePane extends JPanel {
     GridBagLayout gbl;
     GridBagConstraints  gbc;
-    Jbutton back;
+    JButton back;
     JLabel firstLabel, score;
 
     Connection connect;
@@ -25,7 +25,7 @@ public class TopScorePane extends JPanel {
         allPanel.setLayout(new BorderLayout());
 
         // north panel
-        JPanel northpanel = new JPanel();
+        JPanel northPanel = new JPanel();
         JLabel topScoreLabel = new JLabel("Top Score");
         topScoreLabel.setFont(new Font("serif", Font.PLAIN, 50));
         northPanel.add(topScoreLabel);
@@ -53,7 +53,7 @@ public class TopScorePane extends JPanel {
         back = new JButton("Back");
         back.setBackground(Color.black);
         back.setForeground(Color.white);
-        back.addActionListener(this);
+        //back.addActionListener(this);
         centerPanel.add(back, gbc);
         allPanel.add(centerPanel, BorderLayout.CENTER);
 

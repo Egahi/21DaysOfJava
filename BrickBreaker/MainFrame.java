@@ -7,10 +7,14 @@ public class MainFrame extends JFrame implements ActionListener{
     JButton play, topScores, exit;
     GridBagLayout gbl;
     GridBagConstraints gbc;
+    CardLayout cardLayout;
 
     public MainFrame() {
         super("Break Breaker");
+        setBounds(50, 50, 750, 550);
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        cardLayout = new CardLayout();
+        setLayout(cardLayout);
 
         // buttons
         play = new JButton("Play");
@@ -63,18 +67,12 @@ public class MainFrame extends JFrame implements ActionListener{
         JLabel credit = new JLabel("(C) Egahi S. O.");
         southPanel.add(credit);
         allPanel.add(southPanel, BorderLayout.SOUTH);
-        add(allPanel);
-        setVisible(true);
-    }
+        
+        add(allPanel, "main frame");
 
-    /**
-     * sets the location size of the frame
-     *  to the updated values due to resize by user
-     * @param p is the current location (top left coordinates) and
-     * @param r is the current frame size (width and height)
-     */
-    public void setBoundsParameters(Point p, Rectangle r) {
-        setBounds(p.x, p.y, r.width, r.height);
+        TopScorePane tsp = new TopScorePane();
+        add(tsp, "top score pane");
+        setVisible(true);
     }
 
     public void actionPerformed(ActionEvent event) {
@@ -88,13 +86,15 @@ public class MainFrame extends JFrame implements ActionListener{
             System.exit(0);
         } else if (source == topScores) {    
             // display topscoreframe
-            TopScoreFrame tsf = new TopScoreFrame();
+            /*TopScoreFrame tsf = new TopScoreFrame();
             tsf.setBoundsParameters(p, r);
             tsf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             tsf.setVisible(true);
             
             // hide main frame
-            setVisible(false);
+            setVisible(false);*/
+
+            cardLayout.show(MainFrame.this, "main frame");
         } else if (source == play) {
             // display dataframe
             DataFrame df = new DataFrame();
@@ -109,8 +109,5 @@ public class MainFrame extends JFrame implements ActionListener{
  
     public static void main(String[] arguments) {
         MainFrame mf = new MainFrame();
-        Point p = new Point(50, 50);
-        Rectangle r = new Rectangle(750, 550);
-        mf.setBoundsParameters(p, r);
     }
 }
