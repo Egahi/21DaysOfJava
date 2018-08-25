@@ -81,7 +81,7 @@ public class MainFrame extends JFrame implements ActionListener{
         Object source = event.getSource();
         // current size of frame
         Rectangle r = getBounds();
-        // current location of fram
+        // current location of frame
         Point p = getLocation();
 
         if (source == exit) {
@@ -101,7 +101,7 @@ public class MainFrame extends JFrame implements ActionListener{
             df.setBoundsParameters(p, r);
             df.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
             df.setVisible(true);
-            
+
             // hide main frame
             setVisible(false);
         }

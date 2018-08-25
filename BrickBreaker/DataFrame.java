@@ -9,6 +9,7 @@ public class DataFrame extends JFrame implements ActionListener {
     GridBagConstraints gbc;
     JButton start, back;
     JTextField nameField;
+    JPanel allPanel;
 
     Connection connect;
     PreparedStatement pstmt;
@@ -17,13 +18,12 @@ public class DataFrame extends JFrame implements ActionListener {
     public DataFrame() {
         super("Data Page");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        //setBounds(50, 50, 750, 550);
 
         gbl = new GridBagLayout();
         gbc = new GridBagConstraints();
 
         // main panel
-        JPanel allPanel = new JPanel();
+        allPanel = new JPanel();
         allPanel.setLayout(new BorderLayout());
 
         // center panel
