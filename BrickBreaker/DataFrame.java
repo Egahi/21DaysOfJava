@@ -8,6 +8,11 @@ public class DataFrame extends JFrame implements ActionListener {
     GridBagLayout gbl;
     GridBagConstraints gbc;
     JButton start, back;
+    JTextField nameField;
+
+    Connection connect;
+    PreparedStatement pstmt;
+    ResultSet rs;
 
     public DataFrame() {
         super("Data Page");
@@ -31,7 +36,7 @@ public class DataFrame extends JFrame implements ActionListener {
         gbc.insets = new Insets(10, 10, 10, 10);
         JLabel nameLabel = new JLabel("Username");
         nameLabel.setForeground(Color.white);
-        JTextField nameField = new JTextField(20);
+        nameField = new JTextField(20);
         nameField.setBackground(Color.black);
         nameField.setForeground(Color.white);
         centerPanel.add(nameLabel, gbc);
@@ -76,7 +81,8 @@ public class DataFrame extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         Object source = event.getSource();
         if (source == start) {
-            // begin game
+            saveData();
+            // display game frame
         } else if (source == back) {
             Rectangle r = getBounds();
             Point p = getLocation();
@@ -89,6 +95,27 @@ public class DataFrame extends JFrame implements ActionListener {
 
             // hide data frame
             setVisible(false);
+        }
+    }
+
+    /**
+     * saves regisetered users to a database
+     */
+    public void saveData() {
+        String userName = nameField.getText();
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            connect = DriverManager.getConnection("jdbc.mysql://localhost:3306/custom", "root", "gabriel2015");
+            pstmt = connect.prepareStatement("INSERT INTO brickbreakers(username) VALUES(?)");
+            pstmt.setString(1, userName);
+            pstmt.executeUpdate();
+            connect.close();
+            // JOptionPane.showMessageDialog(null, "Registered!", "Data Entry", JOptionPane.WARNING);
+        } catch (SQLException sqle) {
+            System.out.println("Error: " + sqle);
+        } catch (Exception e) {
+            System.out.println("Error1: " + e);
+            //JOptionPane.showMessageDialog(null, "Cannot Record data!", "Data Entry", JOptionPane.WARNING);
         }
     }
 }
