@@ -79,17 +79,23 @@ public class MainFrame extends JFrame implements ActionListener{
 
     public void actionPerformed(ActionEvent event) {
         Object source = event.getSource();
+        // current size of frame
+        Rectangle r = getBounds();
+        // current location of fram
+        Point p = getLocation();
 
         if (source == exit) {
             System.exit(0);
-        } else if (source == topScores) {
-            // display leader board frame
-        } else if (source == play) {
-            // current size of frame
-            Rectangle r = getBounds();
-            // current location of fram
-            Point p = getLocation();
+        } else if (source == topScores) {    
+            // display topscoreframe
+            TopScoreFrame tsf = new TopScoreFrame();
+            tsf.setBoundsParameters(p, r);
+            tsf.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+            tsf.setVisible(true);
             
+            // hide main frame
+            setVisible(false);
+        } else if (source == play) {
             // display dataframe
             DataFrame df = new DataFrame();
             df.setBoundsParameters(p, r);
