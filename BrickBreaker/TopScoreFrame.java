@@ -105,21 +105,21 @@ public class TopScoreFrame extends JFrame implements ActionListener {
         String topScore = "0";
         firstLabel.setText(userName);
         score.setText(topScore);
-        /*try {
-            //Class.forName("com.mysql.jdbc.Driver");
-            //connect = DriverManager.getConnection("jdbc.mysql://localhost:3306/custom", "root", "gabriel2015");
-            //pstmt = connect.prepareStatement("SELECT score FROM brickbreakers WHERE {(username) VALUES(?)"});
-            //pstmt.setString(1, userName);
-            //pstmt.executeUpdate();
-            //connect.close();
-            //topScore = "";
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/custom", "root", "gabriel2015");
+            pstmt = connect.prepareStatement("SELECT score FROM brickbreakers WHERE (username) VALUES(?)");
+            pstmt.setString(1, userName);
+            pstmt.executeUpdate();
+            connect.close();
+            topScore = "";
             //topScoreField.setText(topScore);
-            // JOptionPane.showMessageDialog(null, "Registered!", "Data Entry", JOptionPane.WARNING);
+             //JOptionPane.showMessageDialog(null, "Registered!", "Data Entry", JOptionPane.WARNING);
         } catch (SQLException sqle) {
-            //System.out.println("Error: " + sqle);
+            System.out.println("Error: " + sqle);
         } catch (Exception e) {
-            //System.out.println("Error1: " + e);
+            System.out.println("Error1: " + e);
             //JOptionPane.showMessageDialog(null, "Cannot Record data!", "Data Entry", JOptionPane.WARNING);
-        }*/
+        }
     }
 }

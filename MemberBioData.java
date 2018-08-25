@@ -118,18 +118,18 @@ public class MemberBioData extends JFrame implements ActionListener {
     public void saveData() {
         String firstMemberName = fields[0].getText();
         try {
-            class.forName("com.mysql.jdbc.Driver");
-            connect = DriverManager.getConnection("jdbc.mysql://localhost:3306/javadb", "put username here", "put password here");
+            Class.forName("com.mysql.jdbc.Driver");
+            connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/javadb", "put username here", "put password here");
             pstmt = connect.prepareStatement("INSERT INTO membertable(firstname) VALUES(?)");
             pstmt.setString(1, firstMemberName);
             pstmt.executeUpdate();
             connect.close();
-            JOptionPane.showMessageDialog(null, "Member Inserted Successfully!", "Data Entry", JOptionPane.WARNING);
+            //JOptionPane.showMessageDialog(null, "Member Inserted Successfully!", "Data Entry", JOptionPane.WARNING);
         } catch (SQLException sqle) {
             System.out.println("Error: " + sqle);
         } catch (Exception e) {
             System.out.println("Error1: " + e);
-            JOptionPane.showMessageDialog(null, "Cannot Record data!", "Data Entry", JOptionPane.WARNING);
+            //JOptionPane.showMessageDialog(null, "Cannot Record data!", "Data Entry", JOptionPane.WARNING);
         }
     }
 

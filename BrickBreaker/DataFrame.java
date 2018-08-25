@@ -105,7 +105,7 @@ public class DataFrame extends JFrame implements ActionListener {
         String userName = nameField.getText();
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connect = DriverManager.getConnection("jdbc.mysql://localhost:3306/custom", "root", "gabriel2015");
+            connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/custom", "root", "gabriel2015");
             pstmt = connect.prepareStatement("INSERT INTO brickbreakers(username) VALUES(?)");
             pstmt.setString(1, userName);
             pstmt.executeUpdate();
@@ -113,7 +113,9 @@ public class DataFrame extends JFrame implements ActionListener {
             // JOptionPane.showMessageDialog(null, "Registered!", "Data Entry", JOptionPane.WARNING);
         } catch (SQLException sqle) {
             System.out.println("Error: " + sqle);
-        } catch (Exception e) {
+            System.out.println(sqle.getMessage());
+        } 
+        catch (Exception e) {
             System.out.println("Error1: " + e);
             //JOptionPane.showMessageDialog(null, "Cannot Record data!", "Data Entry", JOptionPane.WARNING);
         }
