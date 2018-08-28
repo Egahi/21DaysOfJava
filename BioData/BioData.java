@@ -5,8 +5,12 @@ import java.awt.event.*;
 import java.sql.*;
 
 public class BioData extends JFrame implements ActionListener {
+    String[] textFieldLabels = {"Name", "Number", "Email", 
+            "Contact address", "Permanent address", "Occupation"};
     JButton[] buttons;
+    JButton searchButton;
     JTextField[] textFields;
+    JTextField result, searchField;
     JTextArea commentsArea;
     JLabel[] labels;
     JPanel centerPanel, southPanel;
@@ -49,8 +53,6 @@ public class BioData extends JFrame implements ActionListener {
 
         // center panel
         // get data entries
-        String[] textFieldLabels = {"Name", "Number", "Email", 
-            "Contact address", "Permanent address", "Occupation"};
         labels = new JLabel[textFieldLabels.length];
         textFields = new JTextField[textFieldLabels.length];
         
@@ -91,18 +93,22 @@ public class BioData extends JFrame implements ActionListener {
         currentCenterPanel.add(commentsScroll);
 
         // display data in database
-        JLabel searchLabel = new JLabel("Search by Name");
+        JLabel searchLabel = new JLabel("Search by");
         searchParameter = new JComboBox();
         for (int i = 0, j = textFieldLabels.length; i < j; i++) {
             searchParameter.addItem(textFieldLabels[i]);
         }
-        JButton searchButton = new JButton("Search");
-        JTextField searchField = new JTextField(20);
+        searchButton = new JButton("Search");
+        searchButton.addActionListener(this);
+        searchField = new JTextField(20);
+        result = new JTextField(20);
+        result.setEditable(false);
         membersPanel.setLayout(new FlowLayout());
         membersPanel.add(searchLabel);
         membersPanel.add(searchParameter);
         membersPanel.add(searchField);
         membersPanel.add(searchButton);
+        membersPanel.add(result);
 
         centerPanel.setLayout(dataCard);
         centerPanel.add(currentCenterPanel, "data panel");
@@ -156,6 +162,8 @@ public class BioData extends JFrame implements ActionListener {
             clearEntries();
         } else if (source == buttons[3]) {
             diplayDataPage();
+        } else if (source == searchButton) {
+            searchDataBase();
         } else if (source == buttons[4]) {
             // close application
             System.exit(0);
@@ -208,6 +216,26 @@ public class BioData extends JFrame implements ActionListener {
     public void diplayDataPage() {
         dataCard.show(centerPanel, "data panel");
         buttonsCard.show(southPanel, "full buttons");
+    }
+
+    public void searchDataBase() {
+        String searchParam = searchParameter.getSelectedItem().toString();
+        String sp = "";
+        if (searchParam == textFieldLabels[0]) {
+            sp = "name";
+        } else if (searchParam == textFieldLabels[1]) {
+            sp = "number";
+        } else if (searchParam == textFieldLabels[2]) {
+            sp = "email";
+        } else if (searchParam == textFieldLabels[3]) {
+            sp = "contact_address";
+        } else if (searchParam == textFieldLabels[4]) {
+            sp = "permanent_address";
+        } else if (searchParam == textFieldLabels[5]) {
+            sp = "occupation";
+        }
+
+        result.setText(sp);
     }
 
     public static void main (String[] args) {
