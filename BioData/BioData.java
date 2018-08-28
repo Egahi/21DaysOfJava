@@ -40,9 +40,9 @@ public class BioData extends JFrame implements ActionListener {
 
         // center panel
         String[] textFieldLabels = {"Name", "Number", "Email", 
-            "Contact address", "Permanent Home address", "Occupation", "Comments"};
+            "Contact address", "Permanent Home address", "Occupation"};
         labels = new JLabel[textFieldLabels.length];
-        textFields = new JTextField[textFieldLabels.length - 1];
+        textFields = new JTextField[textFieldLabels.length];
         dataPanel.setLayout(gbl);
         centerPanel.setLayout(new FlowLayout());
         gbc.insets = new Insets(5, 5, 0, 0);
@@ -107,20 +107,21 @@ public class BioData extends JFrame implements ActionListener {
         }
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/javadb", "root", "gabriel2015");
+            connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/custom", "root", "gabriel2015");
             pstmt = connect.prepareStatement("INSERT INTO membertable" + 
-                "(name, number, email, contact_address, permanent_address, occupation, comments) VALUES(?,?,?,?,?,?,?)");
+                "(name, number, email, contact_address, permanent_address, occupation) VALUES(?,?,?,?,?,?)");
             for (int i = 0, j = textFields.length; i < j; i++) {
                 pstmt.setString(i + 1, inputData[i]);
             }
             pstmt.executeUpdate();
             connect.close();
-            //JOptionPane.showMessageDialog(null, "Member Inserted Successfully!", "Data Entry", JOptionPane.WARNING);
+            JOptionPane.showMessageDialog(null, "Member Inserted Successfully!", "Data Entry", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException sqle) {
             System.out.println("Error: " + sqle);
+            JOptionPane.showMessageDialog(null, "Cannot Record Data!", "Data Entry", JOptionPane.WARNING_MESSAGE);
         } catch (Exception e) {
             System.out.println("Error1: " + e);
-            //JOptionPane.showMessageDialog(null, "Cannot Record data!", "Data Entry", JOptionPane.WARNING);
+            JOptionPane.showMessageDialog(null, "Cannot Record data!", "Data Entry", JOptionPane.WARNING_MESSAGE);
         }
     }
     public static void main (String[] args) {
