@@ -7,7 +7,6 @@ import java.sql.*;
 public class BioData extends JFrame implements ActionListener {
     JButton[] buttons;
     JTextField[] textFields;
-    JTextArea commentsArea;
     JLabel[] labels;
 
     GridBagLayout gbl;
@@ -26,6 +25,7 @@ public class BioData extends JFrame implements ActionListener {
         parentPanel.setLayout(new BorderLayout());
         JPanel centerPanel = new JPanel();
         JPanel dataPanel = new JPanel();
+        JPanel membersPanel = new Jpanel();
         JPanel northPanel = new JPanel();
         JPanel southPanel = new JPanel();
 
@@ -39,12 +39,14 @@ public class BioData extends JFrame implements ActionListener {
         parentPanel.add(northPanel, BorderLayout.NORTH);
 
         // center panel
+        // get data entries
         String[] textFieldLabels = {"Name", "Number", "Email", 
             "Contact address", "Permanent Home address", "Occupation"};
         labels = new JLabel[textFieldLabels.length];
         textFields = new JTextField[textFieldLabels.length];
+        
+        // arrange data labels and fields on datapanel using gridbag layout
         dataPanel.setLayout(gbl);
-        centerPanel.setLayout(new FlowLayout());
         gbc.insets = new Insets(5, 5, 0, 0);
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -62,9 +64,13 @@ public class BioData extends JFrame implements ActionListener {
             dataPanel.add(textFields[i], gbc);
             gbc.gridx--;
         }
+        // place data panel on center panel using flow layout
+        centerPanel.setLayout(new FlowLayout());
         centerPanel.add(dataPanel);
         parentPanel.add(centerPanel, BorderLayout.CENTER);
 
+        // display data in database
+        JTextField
         // south panel
         southPanel.setBackground(Color.blue);
         String[] buttonLabel = {"Register", "View Members", "Clear", "Close"};
@@ -88,19 +94,21 @@ public class BioData extends JFrame implements ActionListener {
         Object source = event.getSource();
 
         if (source == buttons[0]) {
+            // register members
             saveData();
+            clearEntries();
         } else if (source == buttons[2]) {
-            for (int i = 0, j = textFields.length; i < j; i++) {
-                textFields[i].setText("");
-            }
+            clearEntries();
         } else if (source == buttons[2]) {
             // view members
         } else if (source == buttons[3]) {
+            // close application
             System.exit(0);
         }
     }
 
     public void saveData() {
+        // read entries from all fields
         String[] inputData = new String[textFields.length];
         for (int i = 0, j = textFields.length; i < j; i++) {
             inputData[i] = textFields[i].getText();
@@ -122,6 +130,13 @@ public class BioData extends JFrame implements ActionListener {
         } catch (Exception e) {
             System.out.println("Error1: " + e);
             JOptionPane.showMessageDialog(null, "Cannot Record data!", "Data Entry", JOptionPane.WARNING_MESSAGE);
+        }
+    }
+
+    public void clearEntries() {
+        // clear entries in all fields
+        for (int i = 0, j = textFields.length; i < j; i++) {
+            textFields[i].setText("");
         }
     }
     public static void main (String[] args) {
