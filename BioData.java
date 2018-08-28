@@ -41,6 +41,7 @@ public class BioData extends JFrame implements ActionListener {
             buttons[i].addActionListener(this);
             southPanel.add(buttons[i]);
         }
+        buttons[3].setBackground(Color.red);
         parentPanel.add(southPanel, BorderLayout.SOUTH);
 
         add(parentPanel);
