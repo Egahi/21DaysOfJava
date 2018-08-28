@@ -21,6 +21,7 @@ public class BioData extends JFrame implements ActionListener {
         JPanel parentPanel = new JPanel();
         parentPanel.setLayout(new BorderLayout());
         JPanel centerPanel = new JPanel();
+        JPanel dataPanel = new JPanel();
         JPanel northPanel = new JPanel();
         JPanel southPanel = new JPanel();
 
@@ -38,7 +39,9 @@ public class BioData extends JFrame implements ActionListener {
             "Contact address", "Permanent Home address", "Occupation"};
         labels = new JLabel[6];
         textFields = new JTextField[6];
-        centerPanel.setLayout(gbl);
+        dataPanel.setLayout(gbl);
+        centerPanel.setLayout(new FlowLayout());
+        gbc.insets = new Insets(5, 5, 0, 0);
         gbc.gridx = 0;
         gbc.gridy = 0;
         for (int i = 0, j = textFields.length; i < j; i++) {
@@ -46,14 +49,16 @@ public class BioData extends JFrame implements ActionListener {
                 gbc.gridx += 2;
             }
             
-            gbc.gridy = i % 3;
+            // arrange data label and fields in 2 colums
+            gbc.gridy = i % (j / 2);
             labels[i] = new JLabel(textFieldLabels[i]);
-            centerPanel.add(labels[i], gbc);
+            dataPanel.add(labels[i], gbc);
             gbc.gridx ++;
             textFields[i] = new JTextField(20);
-            centerPanel.add(textFields[i], gbc);
+            dataPanel.add(textFields[i], gbc);
             gbc.gridx--;
         }
+        centerPanel.add(dataPanel);
         parentPanel.add(centerPanel, BorderLayout.CENTER);
 
         // south panel
