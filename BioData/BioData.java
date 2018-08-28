@@ -12,6 +12,7 @@ public class BioData extends JFrame implements ActionListener {
 
     GridBagLayout gbl;
     GridBagConstraints gbc;
+    CardLayout cardLayout;
 
     Connection connect;
     PreparedStatement pstmt;
@@ -19,12 +20,14 @@ public class BioData extends JFrame implements ActionListener {
     public BioData() {
         super("Bio Data");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setBounds(50, 50, 750, 550);
+        setBounds(50, 50, 950, 550);
+        cardLayout = new CardLayout();
 
         // parent panel
         JPanel parentPanel = new JPanel();
         parentPanel.setLayout(new BorderLayout());
         JPanel centerPanel = new JPanel();
+        JPanel currentCenterPanel = new JPanel();
         JPanel dataPanel = new JPanel();
         JPanel membersPanel = new JPanel();
         JPanel northPanel = new JPanel();
@@ -65,11 +68,11 @@ public class BioData extends JFrame implements ActionListener {
             dataPanel.add(textFields[i], gbc);
             gbc.gridx--;
         }
-        // use flow layout for center panel
-        centerPanel.setLayout(new FlowLayout());
+        // use flow layout for for current center panel
+        currentCenterPanel.setLayout(new FlowLayout());
 
-        // add data panel to center panel
-        centerPanel.add(dataPanel);
+        // add data panel to current center panel
+        currentCenterPanel.add(dataPanel);
         
         // add text area with scroll bars for comments
         commentsArea = new JTextArea(5, 15);
@@ -79,8 +82,8 @@ public class BioData extends JFrame implements ActionListener {
             ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
             ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
             JLabel commentsLabel = new JLabel("Comments");
-        centerPanel.add(commentsLabel);
-        centerPanel.add(commentsScroll);
+        currentCenterPanel.add(commentsLabel);
+        currentCenterPanel.add(commentsScroll);
 
         // display data in database
         JTextField searchField = new JTextField();
@@ -90,10 +93,14 @@ public class BioData extends JFrame implements ActionListener {
         membersPanel.add(searchLabel);
         membersPanel.add(searchField);
         membersPanel.add(searchButton);
-        centerPanel.add(membersPanel, BorderLayout.CENTER);
+
+        centerPanel.setLayout(cardLayout);
+        centerPanel.add(currentCenterPanel, "data panel");
+        centerPanel.add(membersPanel, "member panel");
 
         // add center panel to parent panel
         parentPanel.add(centerPanel, BorderLayout.CENTER);
+        
         // south panel
         southPanel.setBackground(Color.blue);
         String[] buttonLabel = {"Register", "View Members", "Clear", "Close"};
@@ -163,7 +170,11 @@ public class BioData extends JFrame implements ActionListener {
         for (int i = 0, j = textFields.length; i < j; i++) {
             textFields[i].setText("");
         }
+
+        // clear comments area
+        commentsArea.setText("");
     }
+
     public static void main (String[] args) {
         BioData bd = new BioData();
     }
