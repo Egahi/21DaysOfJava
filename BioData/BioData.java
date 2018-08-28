@@ -155,7 +155,7 @@ public class BioData extends JFrame implements ActionListener {
         } else if (source == buttons[2]) {
             clearEntries();
         } else if (source == buttons[3]) {
-            // goback
+            diplayDataPage();
         } else if (source == buttons[4]) {
             // close application
             System.exit(0);
@@ -203,6 +203,11 @@ public class BioData extends JFrame implements ActionListener {
     public void displayMembers() {
         dataCard.show(centerPanel, "members panel");
         buttonsCard.show(southPanel, "few buttons");
+    }
+
+    public void diplayDataPage() {
+        dataCard.show(centerPanel, "data panel");
+        buttonsCard.show(southPanel, "full buttons");
     }
 
     public static void main (String[] args) {
