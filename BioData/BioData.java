@@ -10,6 +10,7 @@ public class BioData extends JFrame implements ActionListener {
     JTextArea commentsArea;
     JLabel[] labels;
     JPanel centerPanel, southPanel;
+    JComboBox searchParameter;
 
     GridBagLayout gbl;
     GridBagConstraints gbc;
@@ -41,7 +42,7 @@ public class BioData extends JFrame implements ActionListener {
         gbc = new GridBagConstraints();
 
         // north panel
-        ImageIcon headerImage = new ImageIcon("bio_data.jpg");
+        ImageIcon headerImage = new ImageIcon("images/bio_data.jpg");
         JLabel headerLabel = new JLabel(headerImage);
         northPanel.add(headerLabel);
         parentPanel.add(northPanel, BorderLayout.NORTH);
@@ -49,7 +50,7 @@ public class BioData extends JFrame implements ActionListener {
         // center panel
         // get data entries
         String[] textFieldLabels = {"Name", "Number", "Email", 
-            "Contact address", "Permanent Home address", "Occupation"};
+            "Contact address", "Permanent address", "Occupation"};
         labels = new JLabel[textFieldLabels.length];
         textFields = new JTextField[textFieldLabels.length];
         
@@ -90,11 +91,16 @@ public class BioData extends JFrame implements ActionListener {
         currentCenterPanel.add(commentsScroll);
 
         // display data in database
-        JTextField searchField = new JTextField(20);
         JLabel searchLabel = new JLabel("Search by Name");
+        searchParameter = new JComboBox();
+        for (int i = 0, j = textFieldLabels.length; i < j; i++) {
+            searchParameter.addItem(textFieldLabels[i]);
+        }
         JButton searchButton = new JButton("Search");
+        JTextField searchField = new JTextField(20);
         membersPanel.setLayout(new FlowLayout());
         membersPanel.add(searchLabel);
+        membersPanel.add(searchParameter);
         membersPanel.add(searchField);
         membersPanel.add(searchButton);
 
@@ -121,7 +127,7 @@ public class BioData extends JFrame implements ActionListener {
         }
         // add back and close buttons to this panel
         fewButtonPanel.add(buttons[3]);
-        fewButtonPanel.add(buttons[3]);
+        //fewButtonPanel.add(buttons[4]);
         southPanel.setLayout(buttonsCard);
         southPanel.add(fullButtonPanel, "full buttons");
         southPanel.add(fewButtonPanel, "few buttons");
@@ -149,6 +155,8 @@ public class BioData extends JFrame implements ActionListener {
         } else if (source == buttons[2]) {
             clearEntries();
         } else if (source == buttons[3]) {
+            // goback
+        } else if (source == buttons[4]) {
             // close application
             System.exit(0);
         }
