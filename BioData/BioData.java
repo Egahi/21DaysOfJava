@@ -9,10 +9,11 @@ public class BioData extends JFrame implements ActionListener {
     JTextField[] textFields;
     JTextArea commentsArea;
     JLabel[] labels;
+    JPanel centerPanel, southPanel;
 
     GridBagLayout gbl;
     GridBagConstraints gbc;
-    CardLayout cardLayout;
+    CardLayout dataCard, buttonsCard;
 
     Connection connect;
     PreparedStatement pstmt;
@@ -21,17 +22,20 @@ public class BioData extends JFrame implements ActionListener {
         super("Bio Data");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(50, 50, 950, 550);
-        cardLayout = new CardLayout();
+        dataCard = new CardLayout();
+        buttonsCard = new CardLayout();
 
         // parent panel
         JPanel parentPanel = new JPanel();
         parentPanel.setLayout(new BorderLayout());
-        JPanel centerPanel = new JPanel();
+        centerPanel = new JPanel();
         JPanel currentCenterPanel = new JPanel();
         JPanel dataPanel = new JPanel();
         JPanel membersPanel = new JPanel();
         JPanel northPanel = new JPanel();
-        JPanel southPanel = new JPanel();
+        southPanel = new JPanel();
+        JPanel fullButtonPanel = new JPanel();
+        JPanel fewButtonPanel = new JPanel();
 
         gbl = new GridBagLayout();
         gbc = new GridBagConstraints();
@@ -86,7 +90,7 @@ public class BioData extends JFrame implements ActionListener {
         currentCenterPanel.add(commentsScroll);
 
         // display data in database
-        JTextField searchField = new JTextField();
+        JTextField searchField = new JTextField(20);
         JLabel searchLabel = new JLabel("Search by Name");
         JButton searchButton = new JButton("Search");
         membersPanel.setLayout(new FlowLayout());
@@ -94,26 +98,39 @@ public class BioData extends JFrame implements ActionListener {
         membersPanel.add(searchField);
         membersPanel.add(searchButton);
 
-        centerPanel.setLayout(cardLayout);
+        centerPanel.setLayout(dataCard);
         centerPanel.add(currentCenterPanel, "data panel");
-        centerPanel.add(membersPanel, "member panel");
+        centerPanel.add(membersPanel, "members panel");
 
         // add center panel to parent panel
         parentPanel.add(centerPanel, BorderLayout.CENTER);
         
         // south panel
-        southPanel.setBackground(Color.blue);
-        String[] buttonLabel = {"Register", "View Members", "Clear", "Close"};
+        fullButtonPanel.setBackground(Color.blue);
+        fewButtonPanel.setBackground(Color.blue);
+        String[] buttonLabel = {"Register", "View Members", "Clear", "back", "Close"};
         buttons = new JButton[buttonLabel.length];
         for (int i = 0, j = buttons.length; i < j; i++) {
             buttons[i] = new JButton(buttonLabel[i]);
             buttons[i].addActionListener(this);
-            southPanel.add(buttons[i]);
+
+            // skip back button
+            if (i != 3) {
+                fullButtonPanel.add(buttons[i]);
+            }
         }
+        // add back and close buttons to this panel
+        fewButtonPanel.add(buttons[3]);
+        fewButtonPanel.add(buttons[3]);
+        southPanel.setLayout(buttonsCard);
+        southPanel.add(fullButtonPanel, "full buttons");
+        southPanel.add(fewButtonPanel, "few buttons");
+
         // paint register button green
         buttons[0].setBackground(Color.green);
         // paint close button red
-        buttons[3].setBackground(Color.red);
+        buttons[4].setBackground(Color.red);
+
         parentPanel.add(southPanel, BorderLayout.SOUTH);
 
         add(parentPanel);
@@ -127,10 +144,10 @@ public class BioData extends JFrame implements ActionListener {
             // register members
             saveData();
             clearEntries();
+        } else if (source == buttons[1]) {
+            displayMembers();
         } else if (source == buttons[2]) {
             clearEntries();
-        } else if (source == buttons[2]) {
-            // view members
         } else if (source == buttons[3]) {
             // close application
             System.exit(0);
@@ -173,6 +190,11 @@ public class BioData extends JFrame implements ActionListener {
 
         // clear comments area
         commentsArea.setText("");
+    }
+
+    public void displayMembers() {
+        dataCard.show(centerPanel, "members panel");
+        buttonsCard.show(southPanel, "few buttons");
     }
 
     public static void main (String[] args) {
