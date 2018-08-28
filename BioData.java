@@ -34,6 +34,7 @@ public class BioData extends JFrame implements ActionListener {
         parentPanel.add(northPanel, BorderLayout.NORTH);
 
         // south panel
+        southPanel.setBackground(Color.green);
         String[] buttonLabel = {"Register", "Clear", "View Members", "Close"};
         buttons = new JButton[4];
         for (int i = 0, j = buttons.length; i < j; i++) {
@@ -41,6 +42,7 @@ public class BioData extends JFrame implements ActionListener {
             buttons[i].addActionListener(this);
             southPanel.add(buttons[i]);
         }
+        // paint close button red
         buttons[3].setBackground(Color.red);
         parentPanel.add(southPanel, BorderLayout.SOUTH);
 
