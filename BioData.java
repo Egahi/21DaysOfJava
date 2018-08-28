@@ -13,6 +13,9 @@ public class BioData extends JFrame implements ActionListener {
     GridBagLayout gbl;
     GridBagConstraints gbc;
 
+    Connection connect;
+    PreparedStatement pstmt;
+
     public BioData() {
         super("Bio Data");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -55,7 +58,7 @@ public class BioData extends JFrame implements ActionListener {
             labels[i] = new JLabel(textFieldLabels[i]);
             dataPanel.add(labels[i], gbc);
             gbc.gridx ++;
-            textFields[i] = new JTextField(20);
+            textFields[i] = new JTextField(30);
             dataPanel.add(textFields[i], gbc);
             gbc.gridx--;
         }
@@ -65,7 +68,7 @@ public class BioData extends JFrame implements ActionListener {
         // south panel
         southPanel.setBackground(Color.blue);
         String[] buttonLabel = {"Register", "View Members", "Clear", "Close"};
-        buttons = new JButton[4];
+        buttons = new JButton[buttonLabel.length];
         for (int i = 0, j = buttons.length; i < j; i++) {
             buttons[i] = new JButton(buttonLabel[i]);
             buttons[i].addActionListener(this);
@@ -85,8 +88,8 @@ public class BioData extends JFrame implements ActionListener {
         Object source = event.getSource();
 
         if (source == buttons[0]) {
-            // Register Member
-        } else if (source == buttons[1]) {
+            saveData();
+        } else if (source == buttons[2]) {
             for (int i = 0, j = textFields.length; i < j; i++) {
                 textFields[i].setText("");
             }
@@ -97,6 +100,29 @@ public class BioData extends JFrame implements ActionListener {
         }
     }
 
+    public void saveData() {
+        String[] inputData = new String[textFields.length];
+        for (int i = 0, j = textFields.length; i < j; i++) {
+            inputData[i] = textFields[i].getText();
+        }
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/javadb", "root", "gabriel2015");
+            pstmt = connect.prepareStatement("INSERT INTO membertable" + 
+                "(name, number, email, contact_address, permanent_address, occupation, comments) VALUES(?,?,?,?,?,?,?)");
+            for (int i = 0, j = textFields.length; i < j; i++) {
+                pstmt.setString(i + 1, inputData[i]);
+            }
+            pstmt.executeUpdate();
+            connect.close();
+            //JOptionPane.showMessageDialog(null, "Member Inserted Successfully!", "Data Entry", JOptionPane.WARNING);
+        } catch (SQLException sqle) {
+            System.out.println("Error: " + sqle);
+        } catch (Exception e) {
+            System.out.println("Error1: " + e);
+            //JOptionPane.showMessageDialog(null, "Cannot Record data!", "Data Entry", JOptionPane.WARNING);
+        }
+    }
     public static void main (String[] args) {
         BioData bd = new BioData();
     }
