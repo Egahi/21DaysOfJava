@@ -2,7 +2,7 @@ import java.awt.*;
 import javax.swing.*;
 import java.util.*;
 import java.awt.event.*;
-import java.sql;
+import java.sql.*;
 
 public class BioData extends JFrame implements ActionListener {
     JButton[] buttons;
@@ -28,7 +28,7 @@ public class BioData extends JFrame implements ActionListener {
         gbc = new GridBagConstraints();
 
         // north panel
-        Image headerImage = new Image("bio_data.jpg");
+        ImageIcon headerImage = new ImageIcon("bio_data.jpg");
         JLabel headerLabel = new JLabel(headerImage);
         northPanel.add(headerLabel);
         parentPanel.add(northPanel, BorderLayout.NORTH);
@@ -50,15 +50,18 @@ public class BioData extends JFrame implements ActionListener {
     public void actionPerformed(ActionEvent event) {
         Object source = event.getSource();
 
-        switch (source) {
-            case buttons[0]:
-                // Register Member
-            case buttons[1]:
-                // Clear fields
-            case buttons[2]:
-                // view Members
-            case buttons[3]:
-                System.exit(0);
+        if (source == buttons[0]) {
+            // Register Member
+        } else if (source == buttons[1]) {
+            // clear
+        } else if (source == buttons[2]) {
+            // view members
+        } else if (source == buttons[3]) {
+            System.exit(0);
         }
+    }
+
+    public static void main (String[] args) {
+        BioData bd = new BioData();
     }
 }
