@@ -7,6 +7,7 @@ import java.sql.*;
 public class BioData extends JFrame implements ActionListener {
     JButton[] buttons;
     JTextField[] textFields;
+    JTextArea commentsArea;
     JLabel[] labels;
 
     GridBagLayout gbl;
@@ -25,7 +26,7 @@ public class BioData extends JFrame implements ActionListener {
         parentPanel.setLayout(new BorderLayout());
         JPanel centerPanel = new JPanel();
         JPanel dataPanel = new JPanel();
-        JPanel membersPanel = new Jpanel();
+        JPanel membersPanel = new JPanel();
         JPanel northPanel = new JPanel();
         JPanel southPanel = new JPanel();
 
@@ -64,13 +65,35 @@ public class BioData extends JFrame implements ActionListener {
             dataPanel.add(textFields[i], gbc);
             gbc.gridx--;
         }
-        // place data panel on center panel using flow layout
+        // use flow layout for center panel
         centerPanel.setLayout(new FlowLayout());
+
+        // add data panel to center panel
         centerPanel.add(dataPanel);
-        parentPanel.add(centerPanel, BorderLayout.CENTER);
+        
+        // add text area with scroll bars for comments
+        commentsArea = new JTextArea(5, 15);
+        commentsArea.setLineWrap(true);
+        commentsArea.setWrapStyleWord(true);
+        JScrollPane commentsScroll = new JScrollPane(commentsArea, 
+            ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+            ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+            JLabel commentsLabel = new JLabel("Comments");
+        centerPanel.add(commentsLabel);
+        centerPanel.add(commentsScroll);
 
         // display data in database
-        JTextField
+        JTextField searchField = new JTextField();
+        JLabel searchLabel = new JLabel("Search by Name");
+        JButton searchButton = new JButton("Search");
+        membersPanel.setLayout(new FlowLayout());
+        membersPanel.add(searchLabel);
+        membersPanel.add(searchField);
+        membersPanel.add(searchButton);
+        centerPanel.add(membersPanel, BorderLayout.CENTER);
+
+        // add center panel to parent panel
+        parentPanel.add(centerPanel, BorderLayout.CENTER);
         // south panel
         southPanel.setBackground(Color.blue);
         String[] buttonLabel = {"Register", "View Members", "Clear", "Close"};
@@ -113,14 +136,16 @@ public class BioData extends JFrame implements ActionListener {
         for (int i = 0, j = textFields.length; i < j; i++) {
             inputData[i] = textFields[i].getText();
         }
+        String comments = commentsArea.getText();
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/custom", "root", "gabriel2015");
             pstmt = connect.prepareStatement("INSERT INTO membertable" + 
-                "(name, number, email, contact_address, permanent_address, occupation) VALUES(?,?,?,?,?,?)");
+                "(name, number, email, contact_address, permanent_address, occupation, comments) VALUES(?,?,?,?,?,?,?)");
             for (int i = 0, j = textFields.length; i < j; i++) {
                 pstmt.setString(i + 1, inputData[i]);
             }
+            pstmt.setString(7, comments);
             pstmt.executeUpdate();
             connect.close();
             JOptionPane.showMessageDialog(null, "Member Inserted Successfully!", "Data Entry", JOptionPane.INFORMATION_MESSAGE);
