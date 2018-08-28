@@ -7,6 +7,7 @@ import java.sql.*;
 public class BioData extends JFrame implements ActionListener {
     JButton[] buttons;
     JTextField[] textFields;
+    JTextArea commentsArea;
     JLabel[] labels;
 
     GridBagLayout gbl;
@@ -36,21 +37,21 @@ public class BioData extends JFrame implements ActionListener {
 
         // center panel
         String[] textFieldLabels = {"Name", "Number", "Email", 
-            "Contact address", "Permanent Home address", "Occupation"};
-        labels = new JLabel[6];
-        textFields = new JTextField[6];
+            "Contact address", "Permanent Home address", "Occupation", "Comments"};
+        labels = new JLabel[textFieldLabels.length];
+        textFields = new JTextField[textFieldLabels.length - 1];
         dataPanel.setLayout(gbl);
         centerPanel.setLayout(new FlowLayout());
         gbc.insets = new Insets(5, 5, 0, 0);
         gbc.gridx = 0;
         gbc.gridy = 0;
         for (int i = 0, j = textFields.length; i < j; i++) {
-            if (i % 3 == 0) {
-                gbc.gridx += 2;
-            }
-            
             // arrange data label and fields in 2 colums
+            if (i % 3 == 0) {
+                gbc.gridx += 3;
+            }
             gbc.gridy = i % (j / 2);
+            
             labels[i] = new JLabel(textFieldLabels[i]);
             dataPanel.add(labels[i], gbc);
             gbc.gridx ++;
@@ -84,7 +85,9 @@ public class BioData extends JFrame implements ActionListener {
         if (source == buttons[0]) {
             // Register Member
         } else if (source == buttons[1]) {
-            // clear
+            for (int i = 0, j = textFields.length; i < j; i++) {
+                textFields[i].setText("");
+            }
         } else if (source == buttons[2]) {
             // view members
         } else if (source == buttons[3]) {
