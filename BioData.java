@@ -38,11 +38,21 @@ public class BioData extends JFrame implements ActionListener {
             "Contact address", "Permanent Home address", "Occupation"};
         labels = new JLabel[6];
         textFields = new JTextField[6];
+        centerPanel.setLayout(gbl);
+        gbc.gridx = 0;
+        gbc.gridy = 0;
         for (int i = 0, j = textFields.length; i < j; i++) {
+            if (i % 3 == 0) {
+                gbc.gridx += 2;
+            }
+            
+            gbc.gridy = i % 3;
             labels[i] = new JLabel(textFieldLabels[i]);
-            centerPanel.add(labels[i]);
+            centerPanel.add(labels[i], gbc);
+            gbc.gridx ++;
             textFields[i] = new JTextField(20);
-            centerPanel.add(textFields[i]);
+            centerPanel.add(textFields[i], gbc);
+            gbc.gridx--;
         }
         parentPanel.add(centerPanel, BorderLayout.CENTER);
 
