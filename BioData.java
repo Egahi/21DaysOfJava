@@ -33,6 +33,19 @@ public class BioData extends JFrame implements ActionListener {
         northPanel.add(headerLabel);
         parentPanel.add(northPanel, BorderLayout.NORTH);
 
+        // center panel
+        String[] textFieldLabels = {"Name", "Number", "Email", 
+            "Contact address", "Permanent Home address", "Occupation"};
+        labels = new JLabel[6];
+        textFields = new JTextField[6];
+        for (int i = 0, j = textFields.length; i < j; i++) {
+            labels[i] = new JLabel(textFieldLabels[i]);
+            centerPanel.add(labels[i]);
+            textFields[i] = new JTextField(20);
+            centerPanel.add(textFields[i]);
+        }
+        parentPanel.add(centerPanel, BorderLayout.CENTER);
+
         // south panel
         southPanel.setBackground(Color.green);
         String[] buttonLabel = {"Register", "Clear", "View Members", "Close"};
