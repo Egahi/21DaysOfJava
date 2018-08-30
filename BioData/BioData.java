@@ -88,7 +88,7 @@ public class BioData extends JFrame implements ActionListener {
         JScrollPane commentsScroll = new JScrollPane(commentsArea, 
             ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
             ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-            JLabel commentsLabel = new JLabel("Comments");
+        JLabel commentsLabel = new JLabel("Comments");
         currentCenterPanel.add(commentsLabel);
         currentCenterPanel.add(commentsScroll);
 
@@ -113,9 +113,12 @@ public class BioData extends JFrame implements ActionListener {
         centerPanel.setLayout(dataCard);
         centerPanel.add(currentCenterPanel, "data panel");
         centerPanel.add(membersPanel, "members panel");
+        JScrollPane centerPanelScroll = new JScrollPane(centerPanel, 
+            ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+            ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
 
         // add center panel to parent panel
-        parentPanel.add(centerPanel, BorderLayout.CENTER);
+        parentPanel.add(centerPanelScroll, BorderLayout.CENTER);
         
         // south panel
         fullButtonPanel.setBackground(Color.blue);
