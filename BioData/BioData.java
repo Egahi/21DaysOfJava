@@ -220,22 +220,35 @@ public class BioData extends JFrame implements ActionListener {
 
     public void searchDataBase() {
         String searchParam = searchParameter.getSelectedItem().toString();
-        String sp = "";
-        if (searchParam == textFieldLabels[0]) {
-            sp = "name";
-        } else if (searchParam == textFieldLabels[1]) {
-            sp = "number";
-        } else if (searchParam == textFieldLabels[2]) {
-            sp = "email";
-        } else if (searchParam == textFieldLabels[3]) {
-            sp = "contact_address";
-        } else if (searchParam == textFieldLabels[4]) {
-            sp = "permanent_address";
-        } else if (searchParam == textFieldLabels[5]) {
-            sp = "occupation";
-        }
+        String sp = searchField.getText();
 
-        result.setText(sp);
+        try {
+            Class.forName("com.mysql.jdbc.Driver");
+            connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/custom", "root", "gabriel2015");
+
+            if (searchParam == textFieldLabels[0]) {
+                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE name = " + sp);
+                //pstmt.setString(1, sp);
+            } else if (searchParam == textFieldLabels[1]) {
+                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE number = " + sp);
+            } else if (searchParam == textFieldLabels[2]) {
+                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE email = " + sp);
+            } else if (searchParam == textFieldLabels[3]) {
+                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE contact_address = " + sp);
+            } else if (searchParam == textFieldLabels[4]) {
+                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE permanent_address = " + sp);
+            } else if (searchParam == textFieldLabels[5]) {
+                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE occupation = " + sp);
+            }
+           
+            connect.close();
+        } catch (SQLException sqle) {
+            System.out.println("Error: " + sqle);
+            JOptionPane.showMessageDialog(null, "Member not found!", "Data Recovery", JOptionPane.WARNING_MESSAGE);
+        } catch (Exception e) {
+            System.out.println("Error1: " + e);
+            JOptionPane.showMessageDialog(null, "Member not found!", "Data Recovery", JOptionPane.WARNING_MESSAGE);
+        }
     }
 
     public static void main (String[] args) {
