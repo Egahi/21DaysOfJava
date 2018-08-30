@@ -8,12 +8,12 @@ public class BioData extends JFrame implements ActionListener {
     String[] textFieldLabels = {"Name", "Number", "Email", 
             "Contact address", "Permanent address", "Occupation"};
     JButton[] buttons;
-    JButton searchButton;
+    JButton searchButton, secondBackButton;
     JTextField[] textFields;
     JTextField result, searchField;
     JTextArea commentsArea;
     JLabel[] labels;
-    JPanel centerPanel, southPanel;
+    JPanel centerPanel, southPanel, membersPanel;
     JComboBox searchParameter;
 
     GridBagLayout gbl;
@@ -37,7 +37,7 @@ public class BioData extends JFrame implements ActionListener {
         centerPanel = new JPanel();
         JPanel currentCenterPanel = new JPanel();
         JPanel dataPanel = new JPanel();
-        JPanel membersPanel = new JPanel();
+        membersPanel = new JPanel();
         JPanel northPanel = new JPanel();
         southPanel = new JPanel();
         JPanel fullButtonPanel = new JPanel();
@@ -165,6 +165,8 @@ public class BioData extends JFrame implements ActionListener {
             diplayDataPage();
         } else if (source == searchButton) {
             searchDataBase();
+        } else if (source == secondBackButton) {
+            displayMembers();
         } else if (source == buttons[4]) {
             // close application
             System.exit(0);
@@ -243,11 +245,47 @@ public class BioData extends JFrame implements ActionListener {
            
             pstmt.setString(1, sp);
             rs = pstmt.executeQuery();
+
+            // get number of rows
+            int rowCount = 0;
+            if (rs.last()) {
+                rowCount = rs.getRow();
+                rs.beforeFirst();
+            }
+
+            Object[][] rowData = new Object[rowCount][8];
+            Object[] columnNames = {"S/No", textFieldLabels[0], textFieldLabels[1],
+                textFieldLabels[2], textFieldLabels[3], textFieldLabels[4],
+                textFieldLabels[5], "Comments"};
+            
             if (rs.next()) {
-                result.setText(rs.getString("name"));
-            } else {
+                for(int i = 0; rs.next(); i++) {
+                    rowData[i][0] = i + 1;
+                    rowData[i][1] = rs.getString("name");
+                    rowData[i][2] = rs.getString("number");
+                    rowData[i][3] = rs.getString("email");
+                    rowData[i][4] = rs.getString("contact_address");
+                    rowData[i][5] = rs.getString("permanent_address");
+                    rowData[i][6] = rs.getString("occupation");
+                    rowData[i][7] = rs.getString("comments");
+                }
+             } else {
                 JOptionPane.showMessageDialog(null, "Member Not Found", "Data Recovery", JOptionPane.WARNING_MESSAGE);
             }
+            
+            JTable table = new JTable(rowData, columnNames);
+            JPanel searchResultPanel = new JPanel();
+            searchResultPanel.add(table);
+            secondBackButton = new JButton("back");
+            secondBackButton.addActionListener(this);
+            JPanel oneButtonPanel = new JPanel();
+            oneButtonPanel.setBackground(Color.blue);
+            oneButtonPanel.add(secondBackButton);
+            southPanel.add(oneButtonPanel, "back2 button");
+            centerPanel.add(searchResultPanel, "search panel");
+            dataCard.show(centerPanel, "search panel");
+            buttonsCard.show(southPanel, "back2 button");
+
             connect.close();
         } catch (SQLException sqle) {
             System.out.println("Error: " + sqle);
