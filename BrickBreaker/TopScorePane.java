@@ -4,6 +4,7 @@ import java.util.*;
 import java.awt.event.*;
 import java.sql.*;
 
+<<<<<<< HEAD
 public class TopScorePane extends JPanel implements ActionListener {
     GridBagLayout gbl;
     GridBagConstraints gbc;
@@ -16,18 +17,39 @@ public class TopScorePane extends JPanel implements ActionListener {
     ResultSet rs;
 
     public TopScorePane() {
+=======
+public class TopScorePane extends JPanel {
+    GridBagLayout gbl;
+    GridBagConstraints  gbc;
+    JButton back;
+    JLabel firstLabel, score;
+
+    Connection connect;
+    PreparedStatement pstmt;
+
+    public TopScorePane() {
+        super();
+        setSize(750, 550);
+>>>>>>> temp
 
         gbl = new GridBagLayout();
         gbc = new GridBagConstraints();
 
         // main panel
+<<<<<<< HEAD
         allPanel = new JPanel();
+=======
+        JPanel allPanel = new JPanel();
+>>>>>>> temp
         allPanel.setLayout(new BorderLayout());
 
         // north panel
         JPanel northPanel = new JPanel();
         JLabel topScoreLabel = new JLabel("Top Score");
+<<<<<<< HEAD
         topScoreLabel.setForeground(Color.white);
+=======
+>>>>>>> temp
         topScoreLabel.setFont(new Font("serif", Font.PLAIN, 50));
         northPanel.add(topScoreLabel);
         northPanel.setBackground(Color.black);
@@ -54,7 +76,11 @@ public class TopScorePane extends JPanel implements ActionListener {
         back = new JButton("Back");
         back.setBackground(Color.black);
         back.setForeground(Color.white);
+<<<<<<< HEAD
         back.addActionListener(this);
+=======
+        //back.addActionListener(this);
+>>>>>>> temp
         centerPanel.add(back, gbc);
         allPanel.add(centerPanel, BorderLayout.CENTER);
 
@@ -64,6 +90,7 @@ public class TopScorePane extends JPanel implements ActionListener {
         JLabel credit = new JLabel("(C) Egahi S. O.");
         southPanel.add(credit);
         allPanel.add(southPanel, BorderLayout.SOUTH);
+<<<<<<< HEAD
     }
 
     public void actionPerformed(ActionEvent event) {
@@ -71,5 +98,9 @@ public class TopScorePane extends JPanel implements ActionListener {
         if (source == back) {
             // set Main pane
         } 
+=======
+
+        add(allPanel);
+>>>>>>> temp
     }
 }
