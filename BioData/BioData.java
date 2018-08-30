@@ -22,6 +22,7 @@ public class BioData extends JFrame implements ActionListener {
 
     Connection connect;
     PreparedStatement pstmt;
+    ResultSet rs;
 
     public BioData() {
         super("Bio Data");
@@ -227,27 +228,33 @@ public class BioData extends JFrame implements ActionListener {
             connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/custom", "root", "gabriel2015");
 
             if (searchParam == textFieldLabels[0]) {
-                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE name = " + sp);
-                //pstmt.setString(1, sp);
+                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE name LIKE CONCAT('%',?,'%')");
             } else if (searchParam == textFieldLabels[1]) {
-                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE number = " + sp);
+                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE number = ?");
             } else if (searchParam == textFieldLabels[2]) {
-                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE email = " + sp);
+                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE email = ?");
             } else if (searchParam == textFieldLabels[3]) {
-                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE contact_address = " + sp);
+                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE contact_address = ?");
             } else if (searchParam == textFieldLabels[4]) {
-                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE permanent_address = " + sp);
+                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE permanent_address = ?");
             } else if (searchParam == textFieldLabels[5]) {
-                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE occupation = " + sp);
+                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE occupation = ?");
             }
            
+            pstmt.setString(1, sp);
+            rs = pstmt.executeQuery();
+            if (rs.next()) {
+                result.setText(rs.getString("name"));
+            } else {
+                JOptionPane.showMessageDialog(null, "Member Not Found", "Data Recovery", JOptionPane.WARNING_MESSAGE);
+            }
             connect.close();
         } catch (SQLException sqle) {
             System.out.println("Error: " + sqle);
-            JOptionPane.showMessageDialog(null, "Member not found!", "Data Recovery", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error Try Again", "Data Recovery", JOptionPane.WARNING_MESSAGE);
         } catch (Exception e) {
             System.out.println("Error1: " + e);
-            JOptionPane.showMessageDialog(null, "Member not found!", "Data Recovery", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, e.getMessage(), "Error Try Again", JOptionPane.WARNING_MESSAGE);
         }
     }
 
