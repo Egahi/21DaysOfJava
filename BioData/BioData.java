@@ -16,8 +16,8 @@ public class BioData extends JFrame implements ActionListener {
     JLabel[] labels;
     JPanel centerPanel, southPanel, queryPanel;
     JComboBox searchParameter;
+    DefaultTableModel model;
     
-
     GridBagLayout gbl;
     GridBagConstraints gbc;
     CardLayout registrationCard, buttonsCard;
@@ -270,7 +270,12 @@ public class BioData extends JFrame implements ActionListener {
                     rowData[i][7] = rs.getString("comments");
                 }
 
-                JTable table = new JTable(rowData, columnNames);
+                if (model != null) {
+                    model.setRowCount(0);
+                }
+
+                model = new DefaultTableModel(rowData, columnNames);
+                JTable table = new JTable(model);
                 table.getColumnModel().getColumn(1).setCellRenderer(new WordWrapCellRenderer());
                 table.getColumnModel().getColumn(2).setCellRenderer(new WordWrapCellRenderer());
                 table.getColumnModel().getColumn(3).setCellRenderer(new WordWrapCellRenderer());
@@ -281,7 +286,6 @@ public class BioData extends JFrame implements ActionListener {
                 JScrollPane tableScroll = new JScrollPane(table,
                     ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
                     ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
-                queryPanel.remove(tableScroll);
                 queryPanel.add(tableScroll, BorderLayout.CENTER);
                 centerPanel.add(queryPanel, "query panel");
                 registrationCard.show(centerPanel, "query panel");
