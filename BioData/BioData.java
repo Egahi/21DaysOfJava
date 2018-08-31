@@ -3,22 +3,24 @@ import javax.swing.*;
 import java.util.*;
 import java.awt.event.*;
 import java.sql.*;
+import javax.swing.table.*;
 
 public class BioData extends JFrame implements ActionListener {
     String[] textFieldLabels = {"Name", "Number", "Email", 
             "Contact address", "Permanent address", "Occupation"};
     JButton[] buttons;
-    JButton searchButton, secondBackButton;
+    JButton searchButton;
     JTextField[] textFields;
-    JTextField result, searchField;
+    JTextField searchField;
     JTextArea commentsArea;
     JLabel[] labels;
-    JPanel centerPanel, southPanel, membersPanel;
+    JPanel centerPanel, southPanel, queryPanel;
     JComboBox searchParameter;
+    
 
     GridBagLayout gbl;
     GridBagConstraints gbc;
-    CardLayout dataCard, buttonsCard;
+    CardLayout registrationCard, buttonsCard;
 
     Connection connect;
     PreparedStatement pstmt;
@@ -28,20 +30,20 @@ public class BioData extends JFrame implements ActionListener {
         super("Bio Data");
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         setBounds(50, 50, 950, 550);
-        dataCard = new CardLayout();
+        registrationCard = new CardLayout();
         buttonsCard = new CardLayout();
 
         // parent panel
         JPanel parentPanel = new JPanel();
         parentPanel.setLayout(new BorderLayout());
         centerPanel = new JPanel();
-        JPanel currentCenterPanel = new JPanel();
-        JPanel dataPanel = new JPanel();
-        membersPanel = new JPanel();
+        JPanel registrationPanel = new JPanel();
+        JPanel partialRegistrationPanel = new JPanel();
+        queryPanel = new JPanel();
         JPanel northPanel = new JPanel();
         southPanel = new JPanel();
-        JPanel fullButtonPanel = new JPanel();
-        JPanel fewButtonPanel = new JPanel();
+        JPanel controlButtonsPanel = new JPanel();
+        JPanel backButtonPanel = new JPanel();
 
         gbl = new GridBagLayout();
         gbc = new GridBagConstraints();
@@ -53,12 +55,11 @@ public class BioData extends JFrame implements ActionListener {
         parentPanel.add(northPanel, BorderLayout.NORTH);
 
         // center panel
-        // get data entries
         labels = new JLabel[textFieldLabels.length];
         textFields = new JTextField[textFieldLabels.length];
         
-        // arrange data labels and fields on datapanel using gridbag layout
-        dataPanel.setLayout(gbl);
+        // arrange data labels and fields on partialRegistrationPanel using gridbag layout
+        partialRegistrationPanel.setLayout(gbl);
         gbc.insets = new Insets(5, 5, 0, 0);
         gbc.gridx = 0;
         gbc.gridy = 0;
@@ -70,17 +71,15 @@ public class BioData extends JFrame implements ActionListener {
             gbc.gridy = i % (j / 2);
             
             labels[i] = new JLabel(textFieldLabels[i]);
-            dataPanel.add(labels[i], gbc);
+            partialRegistrationPanel.add(labels[i], gbc);
             gbc.gridx ++;
             textFields[i] = new JTextField(30);
-            dataPanel.add(textFields[i], gbc);
+            partialRegistrationPanel.add(textFields[i], gbc);
             gbc.gridx--;
         }
-        // use flow layout for for current center panel
-        currentCenterPanel.setLayout(new FlowLayout());
-
-        // add data panel to current center panel
-        currentCenterPanel.add(dataPanel);
+        // use flow layout for for registration panel
+        registrationPanel.setLayout(new FlowLayout());
+        registrationPanel.add(partialRegistrationPanel);
         
         // add text area with scroll bars for comments
         commentsArea = new JTextArea(5, 15);
@@ -90,8 +89,8 @@ public class BioData extends JFrame implements ActionListener {
             ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
             ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
         JLabel commentsLabel = new JLabel("Comments");
-        currentCenterPanel.add(commentsLabel);
-        currentCenterPanel.add(commentsScroll);
+        registrationPanel.add(commentsLabel);
+        registrationPanel.add(commentsScroll);
 
         // display data in database
         JLabel searchLabel = new JLabel("Search by");
@@ -102,25 +101,24 @@ public class BioData extends JFrame implements ActionListener {
         searchButton = new JButton("Search");
         searchButton.addActionListener(this);
         searchField = new JTextField(20);
-        result = new JTextField(20);
-        result.setEditable(false);
-        membersPanel.setLayout(new FlowLayout());
-        membersPanel.add(searchLabel);
-        membersPanel.add(searchParameter);
-        membersPanel.add(searchField);
-        membersPanel.add(searchButton);
-        membersPanel.add(result);
-
-        centerPanel.setLayout(dataCard);
-        centerPanel.add(currentCenterPanel, "data panel");
-        centerPanel.add(membersPanel, "members panel");
+        JPanel membersPane = new JPanel();
+        membersPane.setLayout(new FlowLayout());
+        membersPane.add(searchLabel);
+        membersPane.add(searchParameter);
+        membersPane.add(searchField);
+        membersPane.add(searchButton);
+        queryPanel.setLayout(new BorderLayout());
+        queryPanel.add(membersPane, BorderLayout.NORTH);
+        centerPanel.setLayout(registrationCard);
+        centerPanel.add(registrationPanel, "registration panel");
+        centerPanel.add(queryPanel, "query panel");
 
         // add center panel to parent panel
         parentPanel.add(centerPanel, BorderLayout.CENTER);
         
         // south panel
-        fullButtonPanel.setBackground(Color.blue);
-        fewButtonPanel.setBackground(Color.blue);
+        controlButtonsPanel.setBackground(Color.blue);
+        backButtonPanel.setBackground(Color.blue);
         String[] buttonLabel = {"Register", "View Members", "Clear", "back", "Close"};
         buttons = new JButton[buttonLabel.length];
         for (int i = 0, j = buttons.length; i < j; i++) {
@@ -129,15 +127,15 @@ public class BioData extends JFrame implements ActionListener {
 
             // skip back button
             if (i != 3) {
-                fullButtonPanel.add(buttons[i]);
+                controlButtonsPanel.add(buttons[i]);
             }
         }
         // add back and close buttons to this panel
-        fewButtonPanel.add(buttons[3]);
-        //fewButtonPanel.add(buttons[4]);
+        backButtonPanel.add(buttons[3]);
+        //backButtonPanel.add(buttons[4]);
         southPanel.setLayout(buttonsCard);
-        southPanel.add(fullButtonPanel, "full buttons");
-        southPanel.add(fewButtonPanel, "few buttons");
+        southPanel.add(controlButtonsPanel, "control buttons");
+        southPanel.add(backButtonPanel, "back button");
 
         // paint register button green
         buttons[0].setBackground(Color.green);
@@ -162,11 +160,9 @@ public class BioData extends JFrame implements ActionListener {
         } else if (source == buttons[2]) {
             clearEntries();
         } else if (source == buttons[3]) {
-            diplayDataPage();
+            diplayRegistrationPage();
         } else if (source == searchButton) {
             searchDataBase();
-        } else if (source == secondBackButton) {
-            displayMembers();
         } else if (source == buttons[4]) {
             // close application
             System.exit(0);
@@ -209,16 +205,19 @@ public class BioData extends JFrame implements ActionListener {
 
         // clear comments area
         commentsArea.setText("");
+
+        // clear search parameter
+        searchField.setText("");
     }
 
     public void displayMembers() {
-        dataCard.show(centerPanel, "members panel");
-        buttonsCard.show(southPanel, "few buttons");
+        registrationCard.show(centerPanel, "query panel");
+        buttonsCard.show(southPanel, "back button");
     }
 
-    public void diplayDataPage() {
-        dataCard.show(centerPanel, "data panel");
-        buttonsCard.show(southPanel, "full buttons");
+    public void diplayRegistrationPage() {
+        registrationCard.show(centerPanel, "registration panel");
+        buttonsCard.show(southPanel, "control buttons");
     }
 
     public void searchDataBase() {
@@ -259,6 +258,7 @@ public class BioData extends JFrame implements ActionListener {
                 textFieldLabels[5], "Comments"};
             
             if (rs.next()) {
+                rs.beforeFirst();
                 for(int i = 0; rs.next(); i++) {
                     rowData[i][0] = i + 1;
                     rowData[i][1] = rs.getString("name");
@@ -269,22 +269,25 @@ public class BioData extends JFrame implements ActionListener {
                     rowData[i][6] = rs.getString("occupation");
                     rowData[i][7] = rs.getString("comments");
                 }
-             } else {
+
+                JTable table = new JTable(rowData, columnNames);
+                table.getColumnModel().getColumn(1).setCellRenderer(new WordWrapCellRenderer());
+                table.getColumnModel().getColumn(2).setCellRenderer(new WordWrapCellRenderer());
+                table.getColumnModel().getColumn(3).setCellRenderer(new WordWrapCellRenderer());
+                table.getColumnModel().getColumn(4).setCellRenderer(new WordWrapCellRenderer());
+                table.getColumnModel().getColumn(5).setCellRenderer(new WordWrapCellRenderer());
+                table.getColumnModel().getColumn(6).setCellRenderer(new WordWrapCellRenderer());
+                table.getColumnModel().getColumn(7).setCellRenderer(new WordWrapCellRenderer());
+                JScrollPane tableScroll = new JScrollPane(table,
+                    ScrollPaneConstants.VERTICAL_SCROLLBAR_AS_NEEDED,
+                    ScrollPaneConstants.HORIZONTAL_SCROLLBAR_AS_NEEDED);
+                queryPanel.remove(tableScroll);
+                queryPanel.add(tableScroll, BorderLayout.CENTER);
+                centerPanel.add(queryPanel, "query panel");
+                registrationCard.show(centerPanel, "query panel");
+            } else {
                 JOptionPane.showMessageDialog(null, "Member Not Found", "Data Recovery", JOptionPane.WARNING_MESSAGE);
             }
-            
-            JTable table = new JTable(rowData, columnNames);
-            JPanel searchResultPanel = new JPanel();
-            searchResultPanel.add(table);
-            secondBackButton = new JButton("back");
-            secondBackButton.addActionListener(this);
-            JPanel oneButtonPanel = new JPanel();
-            oneButtonPanel.setBackground(Color.blue);
-            oneButtonPanel.add(secondBackButton);
-            southPanel.add(oneButtonPanel, "back2 button");
-            centerPanel.add(searchResultPanel, "search panel");
-            dataCard.show(centerPanel, "search panel");
-            buttonsCard.show(southPanel, "back2 button");
 
             connect.close();
         } catch (SQLException sqle) {
@@ -292,11 +295,27 @@ public class BioData extends JFrame implements ActionListener {
             JOptionPane.showMessageDialog(null, "Error Try Again", "Data Recovery", JOptionPane.WARNING_MESSAGE);
         } catch (Exception e) {
             System.out.println("Error1: " + e);
-            JOptionPane.showMessageDialog(null, e.getMessage(), "Error Try Again", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(null, "Error Try Again", "Data Recovery", JOptionPane.WARNING_MESSAGE);
         }
     }
 
     public static void main(String[] args) {
         BioData bd = new BioData();
+    }
+}
+
+class WordWrapCellRenderer extends JTextArea implements TableCellRenderer {
+    WordWrapCellRenderer() {
+        setLineWrap(true);
+        setWrapStyleWord(true);
+    }
+
+    public Component getTableCellRendererComponent(JTable table, Object value, boolean isSelected, boolean hasFocus, int row, int column) {
+        setText(value.toString());
+        setSize(table.getColumnModel().getColumn(column).getWidth(), getPreferredSize().height);
+        if (table.getRowHeight(row) != getPreferredSize().height) {
+            table.setRowHeight(row, getPreferredSize().height);
+        }
+        return this;
     }
 }
