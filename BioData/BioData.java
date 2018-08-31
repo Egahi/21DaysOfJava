@@ -77,11 +77,9 @@ public class BioData extends JFrame implements ActionListener {
             partialRegistrationPanel.add(textFields[i], gbc);
             gbc.gridx--;
         }
-        // use flow layout for for registration panel
         registrationPanel.setLayout(new FlowLayout());
         registrationPanel.add(partialRegistrationPanel);
         
-        // add text area with scroll bars for comments
         commentsArea = new JTextArea(5, 15);
         commentsArea.setLineWrap(true);
         commentsArea.setWrapStyleWord(true);
@@ -92,7 +90,6 @@ public class BioData extends JFrame implements ActionListener {
         registrationPanel.add(commentsLabel);
         registrationPanel.add(commentsScroll);
 
-        // display data in database
         JLabel searchLabel = new JLabel("Search by");
         searchParameter = new JComboBox();
         for (int i = 0, j = textFieldLabels.length; i < j; i++) {
@@ -113,7 +110,6 @@ public class BioData extends JFrame implements ActionListener {
         centerPanel.add(registrationPanel, "registration panel");
         centerPanel.add(queryPanel, "query panel");
 
-        // add center panel to parent panel
         parentPanel.add(centerPanel, BorderLayout.CENTER);
         
         // south panel
@@ -130,9 +126,9 @@ public class BioData extends JFrame implements ActionListener {
                 controlButtonsPanel.add(buttons[i]);
             }
         }
-        // add back and close buttons to this panel
+        // add back button to this panel
         backButtonPanel.add(buttons[3]);
-        //backButtonPanel.add(buttons[4]);
+
         southPanel.setLayout(buttonsCard);
         southPanel.add(controlButtonsPanel, "control buttons");
         southPanel.add(backButtonPanel, "back button");
@@ -148,15 +144,18 @@ public class BioData extends JFrame implements ActionListener {
         setVisible(true);
     }
 
+    /**
+     * adds functionality to all buttons
+     * @param event is the button clicked
+     */
     public void actionPerformed(ActionEvent event) {
         Object source = event.getSource();
 
         if (source == buttons[0]) {
-            // register members
-            saveData();
+            registerMembers();
             clearEntries();
         } else if (source == buttons[1]) {
-            displayMembers();
+            displaySearchPage();
         } else if (source == buttons[2]) {
             clearEntries();
         } else if (source == buttons[3]) {
@@ -169,13 +168,17 @@ public class BioData extends JFrame implements ActionListener {
         }
     }
 
-    public void saveData() {
+    /**
+     * stores member data in the database
+     */
+    public void registerMembers() {
         // read entries from all fields
         String[] inputData = new String[textFields.length];
         for (int i = 0, j = textFields.length; i < j; i++) {
             inputData[i] = textFields[i].getText();
         }
         String comments = commentsArea.getText();
+
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/custom", "root", "gabriel2015");
@@ -187,6 +190,8 @@ public class BioData extends JFrame implements ActionListener {
             pstmt.setString(7, comments);
             pstmt.executeUpdate();
             connect.close();
+
+            // success
             JOptionPane.showMessageDialog(null, "Member Inserted Successfully!", "Data Entry", JOptionPane.INFORMATION_MESSAGE);
         } catch (SQLException sqle) {
             System.out.println("Error: " + sqle);
@@ -197,6 +202,9 @@ public class BioData extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * clears entries in input fields
+     */
     public void clearEntries() {
         // clear entries in all fields
         for (int i = 0, j = textFields.length; i < j; i++) {
@@ -210,7 +218,7 @@ public class BioData extends JFrame implements ActionListener {
         searchField.setText("");
     }
 
-    public void displayMembers() {
+    public void displaySearchPage() {
         registrationCard.show(centerPanel, "query panel");
         buttonsCard.show(southPanel, "back button");
     }
@@ -220,32 +228,35 @@ public class BioData extends JFrame implements ActionListener {
         buttonsCard.show(southPanel, "control buttons");
     }
 
+    /**
+     * reterieves member data from the database and displays the information in a table
+     */
     public void searchDataBase() {
-        String searchParam = searchParameter.getSelectedItem().toString();
+        String searchParameter = searchParameter.getSelectedItem().toString();
         String sp = searchField.getText();
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/custom", "root", "gabriel2015");
 
-            if (searchParam == textFieldLabels[0]) {
+            if (searchParameter == textFieldLabels[0]) {
                 pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE name LIKE CONCAT('%',?,'%')");
-            } else if (searchParam == textFieldLabels[1]) {
+            } else if (searchParameter == textFieldLabels[1]) {
                 pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE number = ?");
-            } else if (searchParam == textFieldLabels[2]) {
-                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE email = ?");
-            } else if (searchParam == textFieldLabels[3]) {
-                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE contact_address = ?");
-            } else if (searchParam == textFieldLabels[4]) {
-                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE permanent_address = ?");
-            } else if (searchParam == textFieldLabels[5]) {
-                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE occupation = ?");
+            } else if (searchParameter == textFieldLabels[2]) {
+                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE email LIKE CONCAT('%',?,'%')");
+            } else if (searchParameter == textFieldLabels[3]) {
+                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE contact_address LIKE CONCAT('%',?,'%')");
+            } else if (searchParameter == textFieldLabels[4]) {
+                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE permanent_address LIKE CONCAT('%',?,'%')");
+            } else if (searchParameter == textFieldLabels[5]) {
+                pstmt = connect.prepareStatement("SELECT * FROM membertable WHERE occupation LIKE CONCAT('%',?,'%')");
             }
            
             pstmt.setString(1, sp);
             rs = pstmt.executeQuery();
 
-            // get number of rows
+            // get number of rows in search result
             int rowCount = 0;
             if (rs.last()) {
                 rowCount = rs.getRow();
@@ -271,6 +282,7 @@ public class BioData extends JFrame implements ActionListener {
                 }
 
                 if (model != null) {
+                    // clear previous search result
                     model.setRowCount(0);
                 }
 
@@ -290,9 +302,11 @@ public class BioData extends JFrame implements ActionListener {
                 centerPanel.add(queryPanel, "query panel");
                 registrationCard.show(centerPanel, "query panel");
             } else {
+                // member not in database
                 JOptionPane.showMessageDialog(null, "Member Not Found", "Data Recovery", JOptionPane.WARNING_MESSAGE);
             }
 
+            // success
             connect.close();
         } catch (SQLException sqle) {
             System.out.println("Error: " + sqle);
