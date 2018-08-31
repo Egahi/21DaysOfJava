@@ -15,7 +15,7 @@ public class BioData extends JFrame implements ActionListener {
     JTextArea commentsArea;
     JLabel[] labels;
     JPanel centerPanel, southPanel, queryPanel;
-    JComboBox searchParameter;
+    JComboBox searchParam;
     DefaultTableModel model;
     
     GridBagLayout gbl;
@@ -91,9 +91,9 @@ public class BioData extends JFrame implements ActionListener {
         registrationPanel.add(commentsScroll);
 
         JLabel searchLabel = new JLabel("Search by");
-        searchParameter = new JComboBox();
+        searchParam = new JComboBox();
         for (int i = 0, j = textFieldLabels.length; i < j; i++) {
-            searchParameter.addItem(textFieldLabels[i]);
+            searchParam.addItem(textFieldLabels[i]);
         }
         searchButton = new JButton("Search");
         searchButton.addActionListener(this);
@@ -101,7 +101,7 @@ public class BioData extends JFrame implements ActionListener {
         JPanel membersPane = new JPanel();
         membersPane.setLayout(new FlowLayout());
         membersPane.add(searchLabel);
-        membersPane.add(searchParameter);
+        membersPane.add(searchParam);
         membersPane.add(searchField);
         membersPane.add(searchButton);
         queryPanel.setLayout(new BorderLayout());
@@ -232,9 +232,9 @@ public class BioData extends JFrame implements ActionListener {
      * reterieves member data from the database and displays the information in a table
      */
     public void searchDataBase() {
-        String searchParameter = searchParameter.getSelectedItem().toString();
+        String searchParameter = searchParam.getSelectedItem().toString();
         String sp = searchField.getText();
-
+        
         try {
             Class.forName("com.mysql.jdbc.Driver");
             connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/custom", "root", "gabriel2015");
