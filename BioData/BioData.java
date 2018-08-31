@@ -322,6 +322,10 @@ public class BioData extends JFrame implements ActionListener {
     }
 }
 
+/**
+ * sets string in table cells to wrap
+ * courtesy of https://stackoverflow.com/a/37768834
+ */
 class WordWrapCellRenderer extends JTextArea implements TableCellRenderer {
     WordWrapCellRenderer() {
         setLineWrap(true);
