@@ -181,7 +181,7 @@ public class BioData extends JFrame implements ActionListener {
 
         try {
             Class.forName("com.mysql.jdbc.Driver");
-            connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/custom", "root", "gabriel2015");
+            connect = DriverManager.getConnection("jdbc:mysql://localhost:3306/custom", "root", "");
             pstmt = connect.prepareStatement("INSERT INTO membertable" + 
                 "(name, number, email, contact_address, permanent_address, occupation, comments) VALUES(?,?,?,?,?,?,?)");
             for (int i = 0, j = textFields.length; i < j; i++) {
